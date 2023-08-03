@@ -9,7 +9,7 @@
       }"
     >
       <div class="flex flex-col items-center relative">
-        <button class="absolute top-[-15px] right-0">
+        <button class="absolute top-[-15px] right-0" @click="onCloseDialog()">
           <CrossMarkVue />
         </button>
         <img :src="logoUrl" class="w-[120px] h-[18px]" />
@@ -133,6 +133,11 @@ export default {
         },
       ],
     }
+  },
+  methods: {
+    onCloseDialog() {
+      this.$store.commit('setIsDialogOpen', false)
+    },
   },
 }
 </script>

@@ -1,5 +1,5 @@
 ﻿<template>
-  <button class="rounded-md w-[64px] h-[32px]">
+  <button class="rounded-md w-[64px] h-[32px]" @click="onClick()">
     {{ text }}
   </button>
 </template>
@@ -12,6 +12,11 @@ export default {
       type: String,
       required: true,
     },
+    onClick: {
+      type: Function,
+      default: () => {},
+    },
   },
+  methods: {},
 }
 </script>

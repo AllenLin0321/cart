@@ -35,13 +35,14 @@
             v-if="!isLogin"
             text="登入"
             class="text-regular-blue bg-white border border-regular-blue"
+            :on-click="onClickLogin"
           />
           <BaseButton
             v-if="!isLogin"
             text="註冊"
             class="text-white bg-regular-blue"
           />
-          <TheAvatar v-if="isLogin" :imageUrl="imageUrl" />
+          <TheAvatar v-if="isLogin" :image-url="imageUrl" />
         </div>
       </div>
     </nav>
@@ -72,10 +73,15 @@ export default {
         'https://d2npjgpjzmbqfv.cloudfront.net/img/logo-hiskio.36e69fc.svg',
       hiringIconUrl:
         'https://d2npjgpjzmbqfv.cloudfront.net/img/header-recruit.3e1f6fd.png',
-      isLogin: true,
+      isLogin: false,
       imageUrl:
         'https://lh3.googleusercontent.com/a/AAcHTtecSYaYkILEQBj56A8K-RlQr2N5WX79bNsokb5mW9ku0Cs=s96-c?sz=250',
     }
+  },
+  methods: {
+    onClickLogin() {
+      this.$store.commit('setIsDialogOpen', true)
+    },
   },
 }
 </script>

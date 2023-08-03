@@ -4,12 +4,12 @@
     <div
       class="h-[calc(100vh-50px)] mt-[50px] flex flex-col"
       :class="{
-        'overflow-hidden': isDialogOpen,
+        'overflow-hidden': $store.state.isDialogOpen,
       }"
     >
       <TheCart />
       <TheFundraising />
-      <LoginDialogVue v-if="isDialogOpen" />
+      <LoginDialogVue v-if="$store.state.isDialogOpen" />
     </div>
   </div>
 </template>
@@ -27,11 +27,6 @@ export default {
     TheCart,
     TheFundraising,
     LoginDialogVue,
-  },
-  data() {
-    return {
-      isDialogOpen: false,
-    }
   },
 }
 </script>
