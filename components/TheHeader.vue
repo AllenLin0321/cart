@@ -34,14 +34,12 @@
           <BaseButton
             v-if="!isLogin"
             text="登入"
-            text-color="regular-blue"
-            bg-color="white"
+            class="text-regular-blue bg-white border border-regular-blue"
           />
           <BaseButton
             v-if="!isLogin"
             text="註冊"
-            text-color="white"
-            bg-color="regular-blue"
+            class="text-white bg-regular-blue"
           />
           <div
             v-if="isLogin"
@@ -62,6 +60,7 @@ import GlassIcon from './icons/GlassIcon.vue'
 import CartIcon from './icons/CartIcon.vue'
 import InformationIcon from './icons/InformationIcon.vue'
 import BaseButton from './base/BaseButton'
+
 export default {
   name: 'TheHeader',
   components: {
@@ -77,7 +76,7 @@ export default {
         'https://d2npjgpjzmbqfv.cloudfront.net/img/logo-hiskio.36e69fc.svg',
       hiringIconUrl:
         'https://d2npjgpjzmbqfv.cloudfront.net/img/header-recruit.3e1f6fd.png',
-      isLogin: true,
+      isLogin: false,
       imageUrl:
         'https://lh3.googleusercontent.com/a/AAcHTtecSYaYkILEQBj56A8K-RlQr2N5WX79bNsokb5mW9ku0Cs=s96-c?sz=250',
     }

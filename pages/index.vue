@@ -1,8 +1,10 @@
 <template>
-  <div class="h-screen">
+  <div class="flex flex-col">
     <TheHeader />
-    <TheCart />
-    <TheFundraising />
+    <div class="h-[calc(100vh-50px)] mt-[50px] flex flex-col">
+      <TheCart />
+      <TheFundraising />
+    </div>
   </div>
 </template>
 

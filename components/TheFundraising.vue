@@ -1,5 +1,5 @@
 ﻿<template>
-  <div class="h-1/2 bg-neutral-100">The Fundraising</div>
+  <div class="bg-neutral-100">The Fundraising</div>
 </template>
 
 <script>
