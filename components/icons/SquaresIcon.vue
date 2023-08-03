@@ -3,8 +3,7 @@
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 20 20"
     fill="currentColor"
-    class="w-5 h-5 text-regular-black"
-    :class="classes"
+    class="w-5 h-5"
   >
     <path
       fill-rule="evenodd"
@@ -17,18 +16,5 @@
 <script>
 export default {
   name: 'SquaresIcon',
-  props: {
-    color: {
-      type: String,
-      default: '#8c8c8c',
-    },
-  },
-  computed: {
-    classes() {
-      return this.color?.[0] === '#'
-        ? `text-[${this.color}]`
-        : `text-${this.color}`
-    },
-  },
 }
 </script>

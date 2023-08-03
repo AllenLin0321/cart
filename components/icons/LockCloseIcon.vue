@@ -18,5 +18,3 @@ export default {
   name: 'LockCloseIcon',
 }
 </script>
-
-<style></style>

@@ -18,5 +18,3 @@ export default {
   name: 'UserCircleIcon',
 }
 </script>
-
-<style></style>

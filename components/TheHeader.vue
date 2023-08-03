@@ -13,12 +13,12 @@
           />
           <!-- Classes -->
           <div class="flex items-center gap-[6px] mx-3 cursor-pointer">
-            <SquaresIcon />
+            <SquaresIcon class="text-[#8c8c8c]" />
             <span class="text-regular-black">課程</span>
           </div>
           <!-- Search -->
           <div class="flex items-center gap-[6px]">
-            <GlassIcon />
+            <GlassIcon class="text-[#8c8c8c] cursor-pointer" />
             <span class="text-[#bfbfbf]">搜尋</span>
           </div>
         </div>
@@ -29,8 +29,8 @@
           <div class="text-regular-black cursor-pointer">
             {{ isLogin ? '我的課程' : '我想開課' }}
           </div>
-          <CartIcon />
-          <InformationIcon />
+          <SolidCartIcon class="text-[#d9d9d9]" />
+          <InformationIcon class="cursor-pointer text-[#d9d9d9]" />
           <BaseButton
             v-if="!isLogin"
             text="登入"
@@ -52,7 +52,7 @@
 <script>
 import SquaresIcon from './icons/SquaresIcon.vue'
 import GlassIcon from './icons/GlassIcon.vue'
-import CartIcon from './icons/CartIcon.vue'
+import SolidCartIcon from './icons/SolidCartIcon.vue'
 import InformationIcon from './icons/InformationIcon.vue'
 import BaseButton from './base/BaseButton'
 import TheAvatar from './base/TheAvatar'
@@ -62,7 +62,7 @@ export default {
   components: {
     SquaresIcon,
     GlassIcon,
-    CartIcon,
+    SolidCartIcon,
     InformationIcon,
     BaseButton,
     TheAvatar,

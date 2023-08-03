@@ -10,7 +10,7 @@
     >
       <div class="flex flex-col items-center relative">
         <button class="absolute top-[-15px] right-0" @click="onCloseDialog()">
-          <CrossMarkVue />
+          <CrossMarkVue class="text-[#595959]" />
         </button>
         <img :src="logoUrl" class="w-[120px] h-[18px]" />
 
@@ -19,6 +19,7 @@
           <span class="selectedNav cursor-pointer">登入</span>
           <span class="cursor-pointer">註冊</span>
         </div>
+
         <!-- 使用第三方平台登入 -->
         <div class="flex flex-col mt-6 gap-4 w-full">
           <div

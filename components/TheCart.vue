@@ -31,7 +31,7 @@
                 <div class="w-1/2 text-[#595959]">
                   {{ numberFormat({ number: 1900 }) }}
                 </div>
-                <div class="w-1/8"><TrashIconVue /></div>
+                <TrashIcon class="cursor-pointer text-[#bfbfbf]" />
               </div>
             </div>
             <div class="h-[108px] p-2 flex items-center">
@@ -51,47 +51,9 @@
                 <div class="w-1/2 text-[#595959]">
                   {{ numberFormat({ number: 1900 }) }}
                 </div>
-                <div class="w-1/8"><TrashIconVue /></div>
-              </div>
-            </div>
-            <div class="h-[108px] p-2 flex items-center">
-              <div class="w-1/2 flex item-center gap-2 pr-8">
-                <div
-                  class="min-w-[120px] h-[68px] bg-cover rounded-lg"
-                  :style="{
-                    backgroundImage: `url(&quot;https://thumbnails.f5ezcode.in/eyJidWNrZXQiOiJjZG4uaGlza2lvLmNvbSIsImtleSI6ImNvdXJzZXNcL2lnNWk2cG9nbmh6aHBsciIsImVkaXRzIjp7IndlYnAiOnt9LCJyZXNpemUiOnsiZml0IjoiY292ZXIiLCJ3aWR0aCI6MzAwfX19&quot;);`,
-                  }"
-                ></div>
-                <span>SQL Server實戰效能調校第四部曲：縱橫交易處理</span>
-              </div>
-              <div class="w-1/4 text-[#8c8c8c]">
-                {{ numberFormat({ number: 1900 }) }}
-              </div>
-              <div class="w-1/4 flex gap-4">
-                <div class="w-1/2 text-[#595959]">
-                  {{ numberFormat({ number: 1900 }) }}
+                <div class="w-1/8">
+                  <TrashIcon class="cursor-pointer text-[#bfbfbf]" />
                 </div>
-                <div class="w-1/8"><TrashIconVue /></div>
-              </div>
-            </div>
-            <div class="h-[108px] p-2 flex items-center">
-              <div class="w-1/2 flex item-center gap-2 pr-8">
-                <div
-                  class="min-w-[120px] h-[68px] bg-cover rounded-lg"
-                  :style="{
-                    backgroundImage: `url(&quot;https://thumbnails.f5ezcode.in/eyJidWNrZXQiOiJjZG4uaGlza2lvLmNvbSIsImtleSI6ImNvdXJzZXNcL2lnNWk2cG9nbmh6aHBsciIsImVkaXRzIjp7IndlYnAiOnt9LCJyZXNpemUiOnsiZml0IjoiY292ZXIiLCJ3aWR0aCI6MzAwfX19&quot;);`,
-                  }"
-                ></div>
-                <span>SQL Server實戰效能調校第四部曲：縱橫交易處理</span>
-              </div>
-              <div class="w-1/4 text-[#8c8c8c]">
-                {{ numberFormat({ number: 1900 }) }}
-              </div>
-              <div class="w-1/4 flex gap-4">
-                <div class="w-1/2 text-[#595959]">
-                  {{ numberFormat({ number: 1900 }) }}
-                </div>
-                <div class="w-1/8"><TrashIconVue /></div>
               </div>
             </div>
           </div>
@@ -112,7 +74,7 @@
               class="text-[#595959] text-[18px] underline underline-offset-4"
               >選擇抵用卷</span
             >
-            <ArrowRightIcon />
+            <ArrowRightIcon class="cursor-pointer" />
           </div>
           <div class="flex justify-between">
             <span class="text-[#8c8c8c] text-[16px]">金額</span>
@@ -140,12 +102,12 @@
 
 <script>
 import { numberFormat } from '../utils'
-import TrashIconVue from './icons/TrashIcon.vue'
+import TrashIcon from './icons/TrashIcon.vue'
 import BaseButton from './base/BaseButton'
 import ArrowRightIcon from './icons/ArrowRightIcon.vue'
 export default {
   name: 'TheCart',
-  components: { TrashIconVue, BaseButton, ArrowRightIcon },
+  components: { TrashIcon, BaseButton, ArrowRightIcon },
   methods: {
     numberFormat,
   },
