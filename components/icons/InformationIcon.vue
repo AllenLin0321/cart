@@ -3,8 +3,7 @@
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     fill="currentColor"
-    class="w-6 h-6x cursor-pointer"
-    :class="classes"
+    class="w-6 h-6x cursor-pointer text-[#d9d9d9]"
   >
     <path
       fill-rule="evenodd"
@@ -17,18 +16,5 @@
 <script>
 export default {
   name: 'InformationIcon',
-  props: {
-    color: {
-      type: String,
-      default: '#d9d9d9',
-    },
-  },
-  computed: {
-    classes() {
-      return this.color[0] === '#'
-        ? `text-[${this.color}]`
-        : `text-${this.color}`
-    },
-  },
 }
 </script>
