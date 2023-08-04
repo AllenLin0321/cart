@@ -4,12 +4,12 @@
     <div
       class="h-[calc(100vh-50px)] mt-[50px] flex flex-col"
       :class="{
-        'overflow-hidden': $store.state.isDialogOpen,
+        'overflow-hidden': isDialogOpen,
       }"
     >
       <TheCart />
       <TheFundraising />
-      <LoginDialogVue v-if="$store.state.isDialogOpen" />
+      <LoginDialogVue v-if="isDialogOpen" />
     </div>
   </div>
 </template>
@@ -27,6 +27,19 @@ export default {
     TheCart,
     TheFundraising,
     LoginDialogVue,
+  },
+  computed: {
+    isDialogOpen() {
+      return this.$store.state.isDialogOpen
+    },
+  },
+  mounted() {
+    this.$store.dispatch('fetchFundraisingCourses')
+    const token = localStorage.getItem('hiskioMember')
+    if (token) {
+      this.$store.commit('setAuthToken', token)
+      this.$store.dispatch('fetchUser', token)
+    }
   },
 }
 </script>

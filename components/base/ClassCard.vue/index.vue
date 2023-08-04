@@ -5,21 +5,28 @@
     <div
       class="w-full h-[150px] bg-cover relative"
       :style="{
-        backgroundImage:
-          'url(&quot;https://thumbnails.f5ezcode.in/eyJidWNrZXQiOiJjZG4uaGlza2lvLmNvbSIsImtleSI6ImNvdXJzZXNcL2lnNWk2cG9nbmh6aHBsciIsImVkaXRzIjp7IndlYnAiOnt9LCJyZXNpemUiOnsiZml0IjoiY292ZXIiLCJ3aWR0aCI6MzAwfX19&quot;)',
+        backgroundImage: `url(&quot;${fundRaisingCourse.image}&quot;)`,
       }"
     >
-      <div class="flex gap-2 absolute bottom-2 right-2">
+      <div
+        class="flex justify-end gap-2 absolute bottom-0 bg-black/[.3] w-full px-2 py-1"
+      >
         <BookMarkIconVue class="text-white" />
-        <SolidCartIcon class="text-white" />
+        <button
+          v-if="isItemInCart(fundRaisingCourse.id)"
+          @click="onRemoveCart(fundRaisingCourse)"
+        >
+          <SolidCartIcon class="text-white" />
+        </button>
+        <button v-else @click="onAddCart(fundRaisingCourse)">
+          <OutlineCartIcon class="text-white" />
+        </button>
       </div>
     </div>
     <div class="p-2 flex flex-col gap-2 grow justify-between">
-      <span class="text-[#454545]"
-        >NUXT.js 前端開發實戰手冊前端開發前端開發前</span
-      >
+      <span class="text-[#454545] truncate">{{ fundRaisingCourse.title }}</span>
       <div class="flex gap-2 items-end">
-        <TheAvatar :imageUrl="imageUrl" />
+        <TheAvatar :image-url="imageUrl" />
         <span class="text-[#8c8c8c] text-[16px]">Chris</span>
       </div>
       <div class="flex justify-between text-[#595959] text-[14px]">
@@ -28,8 +35,8 @@
       </div>
       <ProgressBar percent="30" />
       <div class="flex gap-2 items-baseline">
-        <span class="text-[22px]">$1,500</span
-        ><span class="text-[14px] text-[#bfbfbf] line-through">5000</span>
+        <span class="text-[22px]">$1,500</span>
+        <span class="text-[14px] text-[#bfbfbf] line-through">5000</span>
       </div>
     </div>
   </div>
@@ -38,7 +45,7 @@
 <script>
 import ProgressBar from '../ProgressBar'
 import TheAvatar from '../TheAvatar'
-// import OutlineCartIcon from '~/components/icons/OutlineCartIcon.vue'
+import OutlineCartIcon from '~/components/icons/OutlineCartIcon.vue'
 import SolidCartIcon from '~/components/icons/SolidCartIcon.vue'
 import BookMarkIconVue from '~/components/icons/BookMarkIcon.vue'
 
@@ -47,9 +54,27 @@ export default {
   components: {
     ProgressBar,
     TheAvatar,
-    // OutlineCartIcon,
+    OutlineCartIcon,
     SolidCartIcon,
     BookMarkIconVue,
+  },
+  props: {
+    fundRaisingCourse: {
+      type: Object,
+      default: () => {},
+    },
+    onAddCart: {
+      type: Function,
+      default: () => {},
+    },
+    onRemoveCart: {
+      type: Function,
+      default: () => {},
+    },
+    isItemInCart: {
+      type: Function,
+      default: () => {},
+    },
   },
   data() {
     return {

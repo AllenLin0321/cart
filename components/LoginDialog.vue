@@ -1,6 +1,6 @@
 ﻿<template>
   <div
-    class="overlay-style flex items-center justify-center fixed top-0 left-0 z-[10] w-full h-full bg-black/[.7]"
+    class="flex items-center justify-center fixed top-0 left-0 z-[10] w-full h-full bg-black/[.7]"
   >
     <div
       class="rounded-xl bg-white p-10 w-[450px] h-90v overflow-y-auto"
@@ -36,58 +36,71 @@
           </div>
         </div>
 
-        <!-- HiSKIO ID登入 -->
-        <div class="flex flex-col text-[16px] text-[#595959] w-full">
-          <span class="my-6 mx-auto">使用 HiSKIO ID 登入</span>
-          <div
-            class="flex gap-2 bg-[#fafafa] rounded w-full h-[40px] items-center px-4"
-          >
-            <UserCircleIcon class="text-[#bfbfbf]" />
-            <input
-              type="text"
-              class="bg-[#fafafa] w-full"
-              placeholder="請輸入 HiSKIO ID"
-            />
-          </div>
-          <div
-            class="flex gap-2 bg-[#fafafa] rounded w-full h-[40px] items-center px-4 mt-3"
-          >
-            <LockCloseIcon class="text-[#bfbfbf]" />
-            <input
-              type="password"
-              class="bg-[#fafafa] w-full"
-              placeholder="請輸入登入密碼"
-            />
-          </div>
-        </div>
-
-        <!-- 同意事項 -->
-        <div class="w-full flex items-center gap-2 px-4 mt-5">
-          <input type="checkbox" />
-          <p class="text-[14px] text-[#8C8C8C]">
-            <span
-              >登入註冊即代表您同意<a
-                href="https://hiskio.com/user-policy"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="cursor-pointer underline"
-                >使用者</a
-              >及<a
-                href="https://hiskio.com/privacy-policy"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="cursor-pointer underline"
-                >隱私權政策</a
-              ></span
+        <form @submit.prevent="onAuthLogin">
+          <!-- HiSKIO ID登入 -->
+          <div class="flex flex-col text-[16px] text-[#595959] w-full">
+            <span class="my-6 mx-auto">使用 HiSKIO ID 登入</span>
+            <div
+              class="flex gap-2 bg-[#fafafa] rounded w-full h-[40px] items-center px-4"
             >
-          </p>
-        </div>
+              <UserCircleIcon class="text-[#bfbfbf]" />
+              <input
+                v-model="account"
+                type="text"
+                class="bg-[#fafafa] w-full focus:outline-none"
+                placeholder="請輸入 HiSKIO ID"
+                autocomplete="account"
+              />
+            </div>
+            <span class="error">{{
+              $store.state.authData.accountErrorMessage
+            }}</span>
+            <div
+              class="flex gap-2 bg-[#fafafa] rounded w-full h-[40px] items-center px-4 mt-3"
+            >
+              <LockCloseIcon class="text-[#bfbfbf]" />
+              <input
+                v-model="password"
+                type="password"
+                class="bg-[#fafafa] w-full focus:outline-none"
+                placeholder="請輸入登入密碼"
+                autocomplete="current-password"
+              />
+            </div>
+            <span class="error">{{
+              $store.state.authData.passwordErrorMessage
+            }}</span>
+          </div>
 
-        <!-- 登入按鈕 -->
-        <BaseButton
-          text="登入"
-          class="bg-[#42A4BC] text-white w-full mt-5 h-[40px]"
-        />
+          <!-- 同意事項 -->
+          <div class="w-full flex items-center gap-2 px-4 mt-5">
+            <input type="checkbox" checked />
+            <p class="text-[14px] text-[#8C8C8C]">
+              <span
+                >登入註冊即代表您同意<a
+                  href="https://hiskio.com/user-policy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="cursor-pointer underline"
+                  >使用者</a
+                >及<a
+                  href="https://hiskio.com/privacy-policy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="cursor-pointer underline"
+                  >隱私權政策</a
+                ></span
+              >
+            </p>
+          </div>
+
+          <!-- 登入按鈕 -->
+          <BaseButton
+            text="登入"
+            class="bg-[#42A4BC] text-white w-full mt-5 h-[40px]"
+            type="submit"
+          />
+        </form>
 
         <!-- 忘記密碼 -->
         <span class="text-[16px] text-[#8C8C8C] mt-5 cursor-pointer"
@@ -133,11 +146,20 @@ export default {
           displayText: 'LinkedIn',
         },
       ],
+      account: '',
+      password: '',
     }
   },
   methods: {
     onCloseDialog() {
       this.$store.commit('setIsDialogOpen', false)
+    },
+    onAuthLogin() {
+      this.$store.dispatch('login', {
+        account: this.account,
+        password: this.password,
+        confirm: true,
+      })
     },
   },
 }
@@ -148,5 +170,11 @@ export default {
   color: #42a4bc;
   text-decoration: underline;
   text-underline-offset: 8px;
+}
+
+.error {
+  font-size: 12px;
+  color: red;
+  margin-top: 2px;
 }
 </style>
