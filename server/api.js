@@ -1,5 +1,4 @@
 ﻿import axios from 'axios'
-
 const baseUrl = 'https://api.hiskio.com/v2'
 
 export const authLoginApi = (payload) => {
@@ -21,7 +20,7 @@ export const authLogoutApi = (token) => {
 export const getUserApi = (token) => {
   return axios.get(`${baseUrl}/me`, {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: token ? `Bearer ${token}` : '',
     },
   })
 }
@@ -29,13 +28,22 @@ export const getUserApi = (token) => {
 export const getGeneralCoursesApi = (type) => {
   return axios.get(`${baseUrl}/courses`, { params: { type } })
 }
-export const getfundraisingCoursesApi = () => {
+export const getFundraisingCoursesApi = () => {
   return axios.get(`${baseUrl}/fundraising`)
 }
 
 export const deleteCartApi = (payload, token) => {
-  return axios.delete(`${baseUrl}/carts`, payload)
+  return axios.delete(`${baseUrl}/carts`, payload, {
+    headers: {
+      Authorization: token ? `Bearer ${token}` : '',
+    },
+  })
 }
-export const updateCartApi = (payload) => {
-  return axios.post(`${baseUrl}/carts`, payload)
+export const updateCartApi = (payload, token) => {
+  console.log('token: ', token)
+  return axios.post(`${baseUrl}/carts`, payload, {
+    headers: {
+      Authorization: token ? `Bearer ${token}` : '',
+    },
+  })
 }

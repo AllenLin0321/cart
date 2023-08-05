@@ -6,8 +6,8 @@
         <TheSpinner v-if="isLoading" />
         <div v-else class="flex gap-3 max-w-full overflow-auto">
           <div
-            v-for="(fundraisingCourse, index) in fundraisingCourses"
-            :key="index"
+            v-for="fundraisingCourse in fundraisingCourses"
+            :key="fundraisingCourse.id"
           >
             <ClassCard
               :fundraising-course="fundraisingCourse"

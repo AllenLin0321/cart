@@ -72,12 +72,12 @@
           <div class="flex justify-between">
             <span class="text-[#8c8c8c] text-[16px]">金額</span>
             <span class="text-[#595959] text-[14px]">{{
-              numberFormat({ number: getTotalPrice, showDollarSign: true })
+              numberFormat({ number: cartSubtotal, showDollarSign: true })
             }}</span>
           </div>
 
           <span class="text-[#434343] text-[28px] self-end">{{
-            numberFormat({ number: getTotalPrice, showDollarSign: true })
+            numberFormat({ number: cartTotal, showDollarSign: true })
           }}</span>
 
           <BaseButton
@@ -106,10 +106,11 @@ export default {
     cartItems() {
       return this.$store.state.cart.data
     },
-    getTotalPrice() {
-      return this.$store.state.cart.data.reduce((accu, curr) => {
-        return accu + curr.total
-      }, 0)
+    cartSubtotal() {
+      return this.$store.state.cart.subtotal
+    },
+    cartTotal() {
+      return this.$store.state.cart.total
     },
   },
   methods: {
