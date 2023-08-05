@@ -4,9 +4,10 @@
       <div class="flex flex-col gap-4 w-full">
         <div class="text-[22px] text-[#434343]">募資課程</div>
         <TheSpinner v-if="isLoading" />
+        <!-- Web 樣式 -->
         <div
           v-else
-          class="flex gap-3 max-w-full overflow-auto flex-wrap lg:flex-nowrap"
+          class="hidden lg:flex gap-3 max-w-full overflow-auto flex-wrap lg:flex-nowrap"
         >
           <ClassCard
             v-for="fundraisingCourse in fundraisingCourses"
@@ -17,6 +18,47 @@
             :is-item-in-cart="isItemInCart"
           />
         </div>
+
+        <!-- mWeb 樣式 -->
+        <div class="flex flex-col lg:hidden gap-4">
+          <div
+            v-for="fundraisingCourse in fundraisingCourses"
+            :key="fundraisingCourse.id"
+            class="w-full min-h-[126px] bg-white shadow p-2"
+          >
+            <div class="flex flex-col gap-2">
+              <div class="w-full flex gap-2 justify-between">
+                <img
+                  :src="fundraisingCourse.image"
+                  class="w-[140px] h-[76px]"
+                />
+                <div class="flex flex-col gap-3">
+                  <span class="text-[14px] text-[#595959]">已募資55%</span>
+                  <ProgressBar percent="30" />
+                  <div class="flex gap-2">
+                    <span class="text-[14px]">{{
+                      numberFormat({
+                        number: fundraisingCourse.price,
+                        showDollarSign: true,
+                      })
+                    }}</span>
+                    <span class="text-[14px] text-[#bfbfbf] line-through">{{
+                      numberFormat({
+                        number: fundraisingCourse.fixed_price,
+                        showDollarSign: true,
+                      })
+                    }}</span>
+                  </div>
+                </div>
+                <TheAvatar
+                  :image-url="fundraisingCourse.lecturers[0].avatar"
+                  class="w-[23px] h-[23px]"
+                />
+              </div>
+              <div class="w-full truncate">{{ fundraisingCourse.title }}</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -24,11 +66,14 @@
 
 <script>
 import ClassCard from './base/ClassCard.vue'
+import ProgressBar from './base/ProgressBar'
+import TheAvatar from './base/TheAvatar'
 import TheSpinner from '~/components/base/TheSpinner'
+import { numberFormat } from '~/utils/index'
 
 export default {
   name: 'TheFundraising',
-  components: { ClassCard, TheSpinner },
+  components: { ClassCard, TheSpinner, ProgressBar, TheAvatar },
   computed: {
     fundraisingCourses() {
       return this.$store.state.fundraisingCourses.data
@@ -47,6 +92,7 @@ export default {
     onRemoveCart(fundraisingCourse) {
       this.$store.dispatch('removeCartItems', { id: fundraisingCourse.id })
     },
+    numberFormat,
   },
 }
 </script>

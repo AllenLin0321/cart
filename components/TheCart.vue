@@ -11,10 +11,15 @@
           alt="empty-cart"
           class="w-2/3 h-2/3"
         />
-        <div v-else class="w-full bg-white shadow-lg flex flex-col divide-y">
+
+        <!-- Web 購物車樣式 -->
+        <div
+          v-else
+          class="hidden lg:flex w-full bg-white shadow-lg flex-col divide-y"
+        >
           <!-- Items Header -->
           <div
-            class="hidden lg:flex h-[50px] flex px-2 py-1 items-end text-light-gray text-[16px]"
+            class="h-[50px] flex px-2 py-1 items-end text-light-gray text-[16px]"
           >
             <div class="w-1/2">項目</div>
             <div class="w-1/4">售價</div>
@@ -27,21 +32,19 @@
               :key="cartItem.id"
               class="h-[108px] p-2 flex items-center flex-wrap"
             >
-              <div class="w-full lg:w-1/2 flex item-center gap-2 pr-8">
+              <div class="w-1/2 flex item-center gap-2 pr-8">
                 <div
-                  class="lg:min-w-[120px] h-[68px] bg-cover rounded-lg"
+                  class="min-w-[120px] h-[68px] bg-cover rounded-lg"
                   :style="{
                     backgroundImage: `url(${cartItem.image})`,
                   }"
                 ></div>
-                <span class="text-[14px] lg:text-[16px]">{{
-                  cartItem.name
-                }}</span>
+                <span class="text-[16px]">{{ cartItem.name }}</span>
               </div>
-              <div class="w-full lg:w-1/4 text-[#8c8c8c]">
+              <div class="w-1/4 text-[#8c8c8c]">
                 {{ numberFormat({ number: cartItem.subtotal }) }}
               </div>
-              <div class="w-full lg:w-1/4 flex gap-4">
+              <div class="w-1/4 flex gap-4">
                 <div class="w-1/2 text-[#595959]">
                   {{ numberFormat({ number: cartItem.total }) }}
                 </div>
@@ -49,6 +52,39 @@
                   <TrashIcon class="cursor-pointer text-[#bfbfbf]" />
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- mWeb購物車樣式 -->
+        <div class="flex flex-col lg:hidden w-full shadow divide-y">
+          <div
+            v-for="cartItem in cartItems"
+            :key="cartItem.id"
+            class="bg-white p-1 flex flex-col gap-2"
+          >
+            <div class="flex gap-2 justify-between">
+              <div class="flex gap-3 items-center">
+                <img
+                  :src="cartItem.image"
+                  class="w-[62px] h-[34px] bg-cover"
+                  :alt="cartItem.name"
+                />
+                <span class="text-[#595959] text-[14px]">
+                  {{ cartItem.name }}
+                </span>
+              </div>
+              <button @click="onRemoveCart(cartItem.id)">
+                <TrashIcon class="cursor-pointer text-[#bfbfbf]" />
+              </button>
+            </div>
+            <div class="w-full flex justify-between">
+              <span class="text-[#8c8c8c]">
+                {{ numberFormat({ number: cartItem.subtotal }) }}
+              </span>
+              <span class="text-[#595959]">
+                {{ numberFormat({ number: cartItem.total }) }}
+              </span>
             </div>
           </div>
         </div>
