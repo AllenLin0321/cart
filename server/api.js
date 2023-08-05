@@ -29,7 +29,7 @@ export const getUserApi = (token) => {
 export const getGeneralCoursesApi = (type) => {
   return axios.get(`${baseUrl}/courses`, { params: { type } })
 }
-export const getFundraisingCoursesApi = () => {
+export const getfundraisingCoursesApi = () => {
   return axios.get(`${baseUrl}/fundraising`)
 }
 

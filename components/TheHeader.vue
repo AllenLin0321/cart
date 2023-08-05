@@ -66,6 +66,7 @@ import SolidCartIcon from './icons/SolidCartIcon.vue'
 import InformationIcon from './icons/InformationIcon.vue'
 import BaseButton from './base/BaseButton'
 import TheAvatar from './base/TheAvatar'
+import { SET_IS_DIALOG_OPEN } from '~/store/mutation-types'
 
 export default {
   name: 'TheHeader',
@@ -83,8 +84,6 @@ export default {
         'https://d2npjgpjzmbqfv.cloudfront.net/img/logo-hiskio.36e69fc.svg',
       hiringIconUrl:
         'https://d2npjgpjzmbqfv.cloudfront.net/img/header-recruit.3e1f6fd.png',
-      imageUrl:
-        'https://lh3.googleusercontent.com/a/AAcHTtecSYaYkILEQBj56A8K-RlQr2N5WX79bNsokb5mW9ku0Cs=s96-c?sz=250',
     }
   },
   computed: {
@@ -95,7 +94,7 @@ export default {
   methods: {
     onClickLogin() {
       this.$store.dispatch('fetchFundraisingCourses')
-      this.$store.commit('setIsDialogOpen', true)
+      this.$store.commit(SET_IS_DIALOG_OPEN, true)
     },
     onClickLogout() {
       this.$store.dispatch('logout')

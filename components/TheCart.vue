@@ -29,7 +29,7 @@
                 <div
                   class="min-w-[120px] h-[68px] bg-cover rounded-lg"
                   :style="{
-                    backgroundImage: `url(&quot;${cartItem.image}&quot;)`,
+                    backgroundImage: `url(${cartItem.image})`,
                   }"
                 ></div>
                 <span>{{ cartItem.name }}</span>
@@ -98,6 +98,7 @@ import { numberFormat } from '../utils'
 import TrashIcon from './icons/TrashIcon.vue'
 import BaseButton from './base/BaseButton'
 import ArrowRightIcon from './icons/ArrowRightIcon.vue'
+
 export default {
   name: 'TheCart',
   components: { TrashIcon, BaseButton, ArrowRightIcon },

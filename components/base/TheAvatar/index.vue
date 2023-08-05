@@ -2,7 +2,7 @@
   <div
     class="h-8 w-8 rounded-full bg-cover"
     :style="{
-      backgroundImage: `url('${imageUrl}')`,
+      backgroundImage: `url(${imageUrl})`,
     }"
   ></div>
 </template>
@@ -10,6 +10,11 @@
 <script>
 export default {
   name: 'TheAvatar',
-  props: ['imageUrl'],
+  props: {
+    imageUrl: {
+      type: String,
+      default: '',
+    },
+  },
 }
 </script>

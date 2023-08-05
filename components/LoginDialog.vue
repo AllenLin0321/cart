@@ -5,7 +5,7 @@
     <div
       class="rounded-xl bg-white p-10 w-[450px] h-90v overflow-y-auto"
       :style="{
-        backgroundImage: `url(https://d2npjgpjzmbqfv.cloudfront.net/img/login.d8327b5.png)`,
+        backgroundImage: `url(${backgroundUrl})`,
       }"
     >
       <div class="flex flex-col items-center relative">
@@ -116,6 +116,7 @@ import CrossMarkVue from './icons/CrossMark.vue'
 import LockCloseIcon from './icons/LockCloseIcon.vue'
 import UserCircleIcon from './icons/UserCircleIcon.vue'
 import BaseButton from './base/BaseButton'
+import { SET_IS_DIALOG_OPEN } from '~/store/mutation-types'
 
 export default {
   name: 'LoginDialog',
@@ -146,13 +147,15 @@ export default {
           displayText: 'LinkedIn',
         },
       ],
+      backgroundUrl:
+        'https://d2npjgpjzmbqfv.cloudfront.net/img/login.d8327b5.png',
       account: '',
       password: '',
     }
   },
   methods: {
     onCloseDialog() {
-      this.$store.commit('setIsDialogOpen', false)
+      this.$store.commit(SET_IS_DIALOG_OPEN, false)
     },
     onAuthLogin() {
       this.$store.dispatch('login', {

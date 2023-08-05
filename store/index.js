@@ -5,6 +5,8 @@
   authLogoutApi,
   updateCartApi,
 } from '../server/api'
+import * as mutationTypes from './mutation-types'
+
 const API_COMMON_PROPERTIES = {
   isLoading: false,
   isError: false,
@@ -13,7 +15,7 @@ const API_COMMON_PROPERTIES = {
 
 export const state = () => ({
   isDialogOpen: false,
-  fundRaisingCourses: {
+  fundraisingCourses: {
     ...API_COMMON_PROPERTIES,
     data: [],
   },
@@ -44,27 +46,30 @@ export const getters = {
 }
 
 export const mutations = {
-  setIsDialogOpen(state, isDialogOpen) {
+  [mutationTypes.SET_IS_DIALOG_OPEN](state, isDialogOpen) {
     state.isDialogOpen = isDialogOpen
   },
-  setFundRaisingCourses(state, fundRaisingCourses) {
-    state.fundRaisingCourses.data = fundRaisingCourses
+  [mutationTypes.SET_FUNDRAISING_COURSES](state, fundraisingCourses) {
+    state.fundraisingCourses.data = fundraisingCourses
   },
-  setAuthToken(state, token) {
+  [mutationTypes.SET_AUTH_TOKEN](state, token) {
     state.authData.token = token
     state.isDialogOpen = false
   },
-  setLoadingStatus(state, { stateKey, isLoading }) {
+  [mutationTypes.SET_LOADING_STATUS](state, { stateKey, isLoading }) {
     state[stateKey].isLoading = isLoading
   },
-  setUserData(state, payload) {
+  [mutationTypes.SET_USER_DATA](state, payload) {
     state.user.data = payload
   },
-  setLoginError(state, { accountErrorMessage, passwordErrorMessage }) {
+  [mutationTypes.SET_LOGIN_ERROR](
+    state,
+    { accountErrorMessage, passwordErrorMessage }
+  ) {
     state.authData.accountErrorMessage = accountErrorMessage
     state.authData.passwordErrorMessage = passwordErrorMessage
   },
-  updateCart(state, payload) {
+  [mutationTypes.SET_CART_ITEMS](state, payload) {
     state.cart.data = payload
   },
 }
@@ -72,16 +77,16 @@ export const mutations = {
 export const actions = {
   async fetchFundraisingCourses({ commit }) {
     try {
-      commit('setLoadingStatus', {
-        stateKey: 'fundRaisingCourses',
+      commit(mutationTypes.SET_LOADING_STATUS, {
+        stateKey: 'fundraisingCourses',
         isLoading: true,
       })
       const res = await getGeneralCoursesApi('arrival')
-      commit('setFundRaisingCourses', res.data)
+      commit(mutationTypes.SET_FUNDRAISING_COURSES, res.data)
     } catch (error) {
     } finally {
-      commit('setLoadingStatus', {
-        stateKey: 'fundRaisingCourses',
+      commit(mutationTypes.SET_LOADING_STATUS, {
+        stateKey: 'fundraisingCourses',
         isLoading: false,
       })
     }
@@ -90,7 +95,7 @@ export const actions = {
     try {
       const { data } = await authLoginApi(payload)
       localStorage.setItem('hiskioMember', data.access_token)
-      commit('setAuthToken', data.access_token)
+      commit(mutationTypes.SET_AUTH_TOKEN, data.access_token)
       await dispatch('fetchUser', data.access_token)
     } catch (error) {
       const { message } = error?.response?.data
@@ -102,10 +107,13 @@ export const actions = {
         passwordErrorMessage = message.password[0]
       }
 
-      commit('setLoginError', { accountErrorMessage, passwordErrorMessage })
+      commit(mutationTypes.SET_LOGIN_ERROR, {
+        accountErrorMessage,
+        passwordErrorMessage,
+      })
     } finally {
-      commit('setLoadingStatus', {
-        stateKey: 'fundRaisingCourses',
+      commit(mutationTypes.SET_LOADING_STATUS, {
+        stateKey: 'fundraisingCourses',
         isLoading: false,
       })
     }
@@ -114,15 +122,14 @@ export const actions = {
     try {
       await authLogoutApi(localStorage.getItem('hiskioMember'))
       localStorage.setItem('hiskioMember', '')
-      commit('setAuthToken', '')
+      commit(mutationTypes.SET_AUTH_TOKEN, '')
     } catch (error) {}
   },
   async fetchUser({ commit }, token) {
     try {
       const { data } = await getUserApi(token)
-      commit('setUserData', data)
+      commit(mutationTypes.SET_USER_DATA, data)
     } catch (error) {
-      console.log('error: ', error)
       localStorage.setItem('hiskioMember', '')
     }
   },
@@ -130,7 +137,7 @@ export const actions = {
     try {
       const payload = { items: [...state.cart.data, { id }] }
       const { data } = await updateCartApi(payload)
-      commit('updateCart', data.data)
+      commit(mutationTypes.SET_CART_ITEMS, data.data)
     } catch (error) {}
   },
   removeCartItems({ state, commit }, { id }) {
@@ -141,11 +148,11 @@ export const actions = {
       //   localStorage.getItem('hiskioMember')
       // )
       // console.log('data: ', data)
-      // commit('updateCart', data.data)
+      // commit(mutationTypes.SET_CART_ITEMS, data.data)
       const newData = [...state.cart.data].filter(
         (item) => item.id * 1 !== id * 1
       )
-      commit('updateCart', newData)
+      commit(mutationTypes.SET_CART_ITEMS, newData)
     } catch (error) {}
   },
 }

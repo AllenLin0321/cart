@@ -5,7 +5,7 @@
     <div
       class="w-full h-[150px] bg-cover relative"
       :style="{
-        backgroundImage: `url(&quot;${fundRaisingCourse.image}&quot;)`,
+        backgroundImage: `url(${fundraisingCourse.image})`,
       }"
     >
       <div
@@ -13,21 +13,23 @@
       >
         <BookMarkIconVue class="text-white" />
         <button
-          v-if="isItemInCart(fundRaisingCourse.id)"
-          @click="onRemoveCart(fundRaisingCourse)"
+          v-if="isItemInCart(fundraisingCourse.id)"
+          @click="onRemoveCart(fundraisingCourse)"
         >
           <SolidCartIcon class="text-white" />
         </button>
-        <button v-else @click="onAddCart(fundRaisingCourse)">
+        <button v-else @click="onAddCart(fundraisingCourse)">
           <OutlineCartIcon class="text-white" />
         </button>
       </div>
     </div>
     <div class="p-2 flex flex-col gap-2 grow justify-between">
-      <span class="text-[#454545] truncate">{{ fundRaisingCourse.title }}</span>
+      <span class="text-[#454545] truncate">{{ fundraisingCourse.title }}</span>
       <div class="flex gap-2 items-end">
-        <TheAvatar :image-url="imageUrl" />
-        <span class="text-[#8c8c8c] text-[16px]">Chris</span>
+        <TheAvatar :image-url="fundraisingCourse.lecturers[0].avatar" />
+        <span class="text-[#8c8c8c] text-[16px]">{{
+          fundraisingCourse.lecturers[0].username
+        }}</span>
       </div>
       <div class="flex justify-between text-[#595959] text-[14px]">
         <span>剩三天</span>
@@ -35,8 +37,18 @@
       </div>
       <ProgressBar percent="30" />
       <div class="flex gap-2 items-baseline">
-        <span class="text-[22px]">$1,500</span>
-        <span class="text-[14px] text-[#bfbfbf] line-through">5000</span>
+        <span class="text-[22px]">{{
+          numberFormat({
+            number: fundraisingCourse.price,
+            showDollarSign: true,
+          })
+        }}</span>
+        <span class="text-[14px] text-[#bfbfbf] line-through">{{
+          numberFormat({
+            number: fundraisingCourse.fixed_price,
+            showDollarSign: true,
+          })
+        }}</span>
       </div>
     </div>
   </div>
@@ -48,7 +60,7 @@ import TheAvatar from '../TheAvatar'
 import OutlineCartIcon from '~/components/icons/OutlineCartIcon.vue'
 import SolidCartIcon from '~/components/icons/SolidCartIcon.vue'
 import BookMarkIconVue from '~/components/icons/BookMarkIcon.vue'
-
+import { numberFormat } from '~/utils/index'
 export default {
   name: 'ClassCard',
   components: {
@@ -59,7 +71,7 @@ export default {
     BookMarkIconVue,
   },
   props: {
-    fundRaisingCourse: {
+    fundraisingCourse: {
       type: Object,
       default: () => {},
     },
@@ -76,11 +88,8 @@ export default {
       default: () => {},
     },
   },
-  data() {
-    return {
-      imageUrl:
-        'https://lh3.googleusercontent.com/a/AAcHTtecSYaYkILEQBj56A8K-RlQr2N5WX79bNsokb5mW9ku0Cs=s96-c?sz=250',
-    }
+  methods: {
+    numberFormat,
   },
 }
 </script>

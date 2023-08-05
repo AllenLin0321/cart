@@ -6,11 +6,11 @@
         <TheSpinner v-if="isLoading" />
         <div v-else class="flex gap-3 max-w-full overflow-auto">
           <div
-            v-for="(fundRaisingCourse, index) in fundRaisingCourses"
+            v-for="(fundraisingCourse, index) in fundraisingCourses"
             :key="index"
           >
             <ClassCard
-              :fund-raising-course="fundRaisingCourse"
+              :fundraising-course="fundraisingCourse"
               :on-add-cart="onAddCart"
               :on-remove-cart="onRemoveCart"
               :is-item-in-cart="isItemInCart"
@@ -30,22 +30,22 @@ export default {
   name: 'TheFundraising',
   components: { ClassCard, TheSpinner },
   computed: {
-    fundRaisingCourses() {
-      return this.$store.state.fundRaisingCourses.data
+    fundraisingCourses() {
+      return this.$store.state.fundraisingCourses.data
     },
     isLoading() {
-      return this.$store.state.fundRaisingCourses.isLoading
+      return this.$store.state.fundraisingCourses.isLoading
     },
   },
   methods: {
     isItemInCart(id) {
       return this.$store.getters.isItemInCart(id)
     },
-    onAddCart(fundRaisingCourse) {
-      this.$store.dispatch('updateCartItems', { id: fundRaisingCourse.id })
+    onAddCart(fundraisingCourse) {
+      this.$store.dispatch('updateCartItems', { id: fundraisingCourse.id })
     },
-    onRemoveCart(fundRaisingCourse) {
-      this.$store.dispatch('removeCartItems', { id: fundRaisingCourse.id })
+    onRemoveCart(fundraisingCourse) {
+      this.$store.dispatch('removeCartItems', { id: fundraisingCourse.id })
     },
   },
 }
