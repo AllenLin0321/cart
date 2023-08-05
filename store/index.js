@@ -4,6 +4,7 @@
   getUserApi,
   authLogoutApi,
   updateCartApi,
+  deleteCartApi,
 } from '../server/api'
 import * as mutationTypes from './mutation-types'
 
@@ -28,8 +29,6 @@ export const state = () => ({
   cart: {
     ...API_COMMON_PROPERTIES,
     data: [],
-    subtotal: 0,
-    total: 0,
   },
   user: {
     ...API_COMMON_PROPERTIES,
@@ -40,7 +39,7 @@ export const state = () => ({
 export const getters = {
   isItemInCart: (state) => (id) => {
     return (
-      state.cart.data.findIndex((item) => {
+      state.cart.data?.findIndex((item) => {
         return item.id * 1 === id * 1
       }) >= 0
     )
@@ -73,14 +72,11 @@ export const mutations = {
   },
   [mutationTypes.SET_CART_ITEMS](state, payload) {
     state.cart.data = payload.data
-    state.cart.subtotal = payload.subtotal
-    state.cart.total = payload.total
   },
 }
 
 export const actions = {
   async fetchFundraisingCourses({ commit, app }) {
-    console.log('app: ', app)
     try {
       commit(mutationTypes.SET_LOADING_STATUS, {
         stateKey: 'fundraisingCourses',
@@ -141,7 +137,10 @@ export const actions = {
   async updateCartItems({ state, commit }, { id }) {
     try {
       const token = localStorage.getItem('hiskioMember')
-      const payload = { items: [...state.cart.data, { id }] }
+
+      const payload = {
+        items: [...(state.cart?.data ? state.cart?.data : []), { id }],
+      }
       const { data } = await updateCartApi(payload, token)
       localStorage.setItem('hiskioCart', JSON.stringify(data))
       commit(mutationTypes.SET_CART_ITEMS, data)
@@ -150,20 +149,32 @@ export const actions = {
   async removeCartItems({ state, commit }, { id }) {
     try {
       const token = localStorage.getItem('hiskioMember')
+      const newCartItems = [...state.cart.data].filter(
+        (item) => item.id * 1 !== id * 1
+      )
 
-      const newCartItems = [...state.cart.data]
-        .filter((item) => item.id * 1 !== id * 1)
-        .map((item) => ({
-          id: item.id,
-        }))
-      const payload = { items: newCartItems }
+      if (token) {
+        const payload = { items: [{ id }] }
 
-      const { data } = await updateCartApi(payload, token)
-      console.log('data: ', data)
+        const { data } = await deleteCartApi(payload, token)
 
-      // 如果有登入還要打Delete API
-      localStorage.setItem('hiskioCart', JSON.stringify(data))
-      commit(mutationTypes.SET_CART_ITEMS, data)
+        if (data === 'OK.') {
+          localStorage.setItem(
+            'hiskioCart',
+            JSON.stringify({ data: newCartItems })
+          )
+          commit(mutationTypes.SET_CART_ITEMS, { data: newCartItems })
+        }
+      } else {
+        const payload = {
+          items: newCartItems.map((item) => ({
+            id: item.id,
+          })),
+        }
+        const { data } = await updateCartApi(payload, token)
+        localStorage.setItem('hiskioCart', JSON.stringify(data))
+        commit(mutationTypes.SET_CART_ITEMS, data)
+      }
     } catch (error) {}
   },
 }

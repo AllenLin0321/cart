@@ -42,7 +42,6 @@ export default {
       this.$store.commit(SET_AUTH_TOKEN, token)
       this.$store.dispatch('fetchUser', token)
     }
-
     if (cart) {
       this.$store.commit(SET_CART_ITEMS, JSON.parse(cart))
     }

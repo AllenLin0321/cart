@@ -33,14 +33,14 @@ export const getFundraisingCoursesApi = () => {
 }
 
 export const deleteCartApi = (payload, token) => {
-  return axios.delete(`${baseUrl}/carts`, payload, {
+  return axios.delete(`${baseUrl}/carts`, {
     headers: {
       Authorization: token ? `Bearer ${token}` : '',
     },
+    data: payload,
   })
 }
 export const updateCartApi = (payload, token) => {
-  console.log('token: ', token)
   return axios.post(`${baseUrl}/carts`, payload, {
     headers: {
       Authorization: token ? `Bearer ${token}` : '',

@@ -4,7 +4,7 @@
       <div class="w-2/3 flex flex-col gap-3">
         <span class="text-[24px]">購物車</span>
         <img
-          v-if="cartItems?.length === 0"
+          v-if="!cartItems || cartItems?.length === 0"
           src="~/static/img-EmptyCart.png"
           alt="empty-cart"
           class="w-2/3 h-2/3"
@@ -107,10 +107,14 @@ export default {
       return this.$store.state.cart.data
     },
     cartSubtotal() {
-      return this.$store.state.cart.subtotal
+      return this.$store.state.cart.data?.reduce((accu, curr) => {
+        return accu + curr.subtotal
+      }, 0)
     },
     cartTotal() {
-      return this.$store.state.cart.total
+      return this.$store.state.cart.data?.reduce((accu, curr) => {
+        return accu + curr.total
+      }, 0)
     },
   },
   methods: {
