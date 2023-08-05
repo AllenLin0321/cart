@@ -76,7 +76,7 @@
 
           <!-- 同意事項 -->
           <div class="w-full flex items-center gap-2 mt-5">
-            <input type="checkbox" checked />
+            <input type="checkbox" checked class="accent-[#178FAC]" />
             <p class="text-[10px] lg:text-[14px] text-[#8C8C8C]">
               <span
                 >登入註冊即代表您同意<a

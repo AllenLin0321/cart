@@ -27,27 +27,29 @@
             class="w-full min-h-[126px] bg-white shadow p-2"
           >
             <div class="flex flex-col gap-2">
-              <div class="w-full flex gap-2 justify-between">
-                <img
-                  :src="fundraisingCourse.image"
-                  class="w-[140px] h-[76px]"
-                />
-                <div class="flex flex-col gap-3">
-                  <span class="text-[14px] text-[#595959]">已募資55%</span>
-                  <ProgressBar percent="30" />
-                  <div class="flex gap-2">
-                    <span class="text-[14px]">{{
-                      numberFormat({
-                        number: fundraisingCourse.price,
-                        showDollarSign: true,
-                      })
-                    }}</span>
-                    <span class="text-[14px] text-[#bfbfbf] line-through">{{
-                      numberFormat({
-                        number: fundraisingCourse.fixed_price,
-                        showDollarSign: true,
-                      })
-                    }}</span>
+              <div class="w-full flex justify-between">
+                <div class="flex gap-2 w-4/5">
+                  <img
+                    :src="fundraisingCourse.image"
+                    class="w-[140px] h-[76px]"
+                  />
+                  <div class="flex flex-col gap-3 w-[110px]">
+                    <span class="text-[14px] text-[#595959]">已募資55%</span>
+                    <ProgressBar percent="30" />
+                    <div class="flex gap-2">
+                      <span class="text-[14px]">{{
+                        numberFormat({
+                          number: fundraisingCourse.price,
+                          showDollarSign: true,
+                        })
+                      }}</span>
+                      <span class="text-[14px] text-[#bfbfbf] line-through">{{
+                        numberFormat({
+                          number: fundraisingCourse.fixed_price,
+                          showDollarSign: true,
+                        })
+                      }}</span>
+                    </div>
                   </div>
                 </div>
                 <TheAvatar

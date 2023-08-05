@@ -101,7 +101,7 @@
               class="border border-[#bfbfbf] grow rounded focus:outline-[#898989] p-2"
             />
             <BaseButton
-              class="hidden lg:block text-[#e34a4a] bg-[#ffe5e5]"
+              class="hidden lg:block text-[#e34a4a] bg-[#ffe5e5] h-full"
               text="確定"
             />
           </div>
