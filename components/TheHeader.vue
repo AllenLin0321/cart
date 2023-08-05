@@ -1,46 +1,52 @@
 ﻿<template>
   <header class="bg-white h-[50px] fixed w-full shadow">
     <nav class="flex items-center justify-center h-full">
-      <div class="w-3/4 h-full flex items-center justify-between">
+      <div
+        class="px-3 lg:p-0 w-full lg:w-3/4 h-full flex items-center justify-between"
+      >
         <div class="flex items-center gap-2 h-full">
           <!-- Company Logo -->
-          <img :src="logoUrl" class="h-4 cursor-pointer" />
+          <img :src="logoUrl" class="h-[10px] lg:h-4 cursor-pointer" />
 
           <!-- Hiring Logo -->
           <img
             :src="hiringIconUrl"
-            class="h-10 w-[80px] object-contain cursor-pointer"
+            class="hidden lg:block h-10 w-[80px] object-contain cursor-pointer"
           />
           <!-- Classes -->
-          <div class="flex items-center gap-[6px] mx-3 cursor-pointer">
+          <div
+            class="items-center gap-[6px] mx-3 cursor-pointer hidden lg:flex"
+          >
             <SquaresIcon class="text-[#8c8c8c]" />
             <span class="text-regular-black">課程</span>
           </div>
           <!-- Search -->
           <div class="flex items-center gap-[6px]">
             <GlassIcon class="text-[#8c8c8c] cursor-pointer" />
-            <span class="text-[#bfbfbf]">搜尋</span>
+            <span class="hidden lg:block text-[#bfbfbf]">搜尋</span>
           </div>
         </div>
         <div class="flex items-center gap-4">
           <div v-if="isLogin" class="text-regular-black cursor-pointer">
             任務版
           </div>
-          <div class="text-regular-black cursor-pointer">
+          <div class="text-regular-black cursor-pointer hidden lg:block">
             {{ isLogin ? '我的課程' : '我想開課' }}
           </div>
           <SolidCartIcon class="text-[#d9d9d9]" />
-          <InformationIcon class="cursor-pointer text-[#d9d9d9]" />
+          <InformationIcon
+            class="hidden lg:block cursor-pointer text-[#d9d9d9]"
+          />
           <BaseButton
             v-if="!isLogin"
             text="登入"
-            class="text-regular-blue bg-white border border-regular-blue"
+            class="hidden lg:block text-regular-blue bg-white border border-regular-blue"
             :on-click="onClickLogin"
           />
           <BaseButton
             v-if="!isLogin"
             text="註冊"
-            class="text-white bg-regular-blue"
+            class="hidden lg:block text-white bg-regular-blue"
           />
           <TheAvatar
             v-if="isLogin"
@@ -53,6 +59,7 @@
             text="登出"
             class="text-white bg-regular-blue"
           ></BaseButton>
+          <button><MenuIcon class="text-[#8c8c8c]" /></button>
         </div>
       </div>
     </nav>
@@ -66,6 +73,7 @@ import SolidCartIcon from './icons/SolidCartIcon.vue'
 import InformationIcon from './icons/InformationIcon.vue'
 import BaseButton from './base/BaseButton'
 import TheAvatar from './base/TheAvatar'
+import MenuIcon from './icons/MenuIcon.vue'
 import { SET_IS_DIALOG_OPEN } from '~/store/mutation-types'
 
 export default {
@@ -77,6 +85,7 @@ export default {
     InformationIcon,
     BaseButton,
     TheAvatar,
+    MenuIcon,
   },
   data() {
     return {

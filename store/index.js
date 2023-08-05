@@ -16,6 +16,7 @@ const API_COMMON_PROPERTIES = {
 
 export const state = () => ({
   isDialogOpen: false,
+  isScreenLoading: false,
   fundraisingCourses: {
     ...API_COMMON_PROPERTIES,
     data: [],
@@ -73,10 +74,13 @@ export const mutations = {
   [mutationTypes.SET_CART_ITEMS](state, payload) {
     state.cart.data = payload.data
   },
+  [mutationTypes.SET_SCREEN_LOADING](state, isScreenLoading) {
+    state.isScreenLoading = isScreenLoading
+  },
 }
 
 export const actions = {
-  async fetchFundraisingCourses({ commit, app }) {
+  async fetchFundraisingCourses({ commit }) {
     try {
       commit(mutationTypes.SET_LOADING_STATUS, {
         stateKey: 'fundraisingCourses',
@@ -94,6 +98,10 @@ export const actions = {
   },
   async login({ commit, dispatch }, payload) {
     try {
+      commit(mutationTypes.SET_LOADING_STATUS, {
+        stateKey: 'user',
+        isLoading: true,
+      })
       const { data } = await authLoginApi(payload)
       localStorage.setItem('hiskioMember', data.access_token)
       commit(mutationTypes.SET_AUTH_TOKEN, data.access_token)
@@ -114,17 +122,21 @@ export const actions = {
       })
     } finally {
       commit(mutationTypes.SET_LOADING_STATUS, {
-        stateKey: 'fundraisingCourses',
+        stateKey: 'user',
         isLoading: false,
       })
     }
   },
   async logout({ commit }) {
     try {
+      commit(mutationTypes.SET_SCREEN_LOADING, true)
       await authLogoutApi(localStorage.getItem('hiskioMember'))
       localStorage.setItem('hiskioMember', '')
       commit(mutationTypes.SET_AUTH_TOKEN, '')
-    } catch (error) {}
+    } catch (error) {
+    } finally {
+      commit(mutationTypes.SET_SCREEN_LOADING, false)
+    }
   },
   async fetchUser({ commit }, token) {
     try {
@@ -136,18 +148,22 @@ export const actions = {
   },
   async updateCartItems({ state, commit }, { id }) {
     try {
+      commit(mutationTypes.SET_SCREEN_LOADING, true)
       const token = localStorage.getItem('hiskioMember')
-
       const payload = {
         items: [...(state.cart?.data ? state.cart?.data : []), { id }],
       }
       const { data } = await updateCartApi(payload, token)
       localStorage.setItem('hiskioCart', JSON.stringify(data))
       commit(mutationTypes.SET_CART_ITEMS, data)
-    } catch (error) {}
+    } catch (error) {
+    } finally {
+      commit(mutationTypes.SET_SCREEN_LOADING, false)
+    }
   },
   async removeCartItems({ state, commit }, { id }) {
     try {
+      commit(mutationTypes.SET_SCREEN_LOADING, true)
       const token = localStorage.getItem('hiskioMember')
       const newCartItems = [...state.cart.data].filter(
         (item) => item.id * 1 !== id * 1
@@ -175,6 +191,9 @@ export const actions = {
         localStorage.setItem('hiskioCart', JSON.stringify(data))
         commit(mutationTypes.SET_CART_ITEMS, data)
       }
-    } catch (error) {}
+    } catch (error) {
+    } finally {
+      commit(mutationTypes.SET_SCREEN_LOADING, false)
+    }
   },
 }

@@ -11,6 +11,7 @@
       <TheFundraising />
       <LoginDialogVue v-if="isDialogOpen" />
     </div>
+    <ScreenLoading v-if="isScreenLoading" />
   </div>
 </template>
 
@@ -19,6 +20,7 @@ import TheHeader from '../components/TheHeader.vue'
 import TheCart from '../components/TheCart.vue'
 import TheFundraising from '../components/TheFundraising.vue'
 import LoginDialogVue from '../components/LoginDialog.vue'
+import ScreenLoading from '~/components/base/ScreenLoading'
 import { SET_AUTH_TOKEN, SET_CART_ITEMS } from '~/store/mutation-types'
 
 export default {
@@ -28,10 +30,14 @@ export default {
     TheCart,
     TheFundraising,
     LoginDialogVue,
+    ScreenLoading,
   },
   computed: {
     isDialogOpen() {
       return this.$store.state.isDialogOpen
+    },
+    isScreenLoading() {
+      return this.$store.state.isScreenLoading
     },
   },
   mounted() {

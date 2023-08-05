@@ -1,8 +1,10 @@
 ﻿<template>
   <div class="h-full flex justify-center bg-zinc-50">
-    <div class="w-3/4 py-12 flex justify-between gap-4">
-      <div class="w-2/3 flex flex-col gap-3">
-        <span class="text-[24px]">購物車</span>
+    <div
+      class="p-3 py-2 w-full flex-wrap lg:flex-nowrap lg:w-3/4 lg:py-12 flex justify-between gap-4"
+    >
+      <div class="w-full lg:w-2/3 flex flex-col gap-3">
+        <span class="text-[20px] lg:text-[24px]">購物車</span>
         <img
           v-if="!cartItems || cartItems?.length === 0"
           src="~/static/img-EmptyCart.png"
@@ -12,7 +14,7 @@
         <div v-else class="w-full bg-white shadow-lg flex flex-col divide-y">
           <!-- Items Header -->
           <div
-            class="h-[50px] flex px-2 py-1 items-end text-light-gray text-[16px]"
+            class="hidden lg:flex h-[50px] flex px-2 py-1 items-end text-light-gray text-[16px]"
           >
             <div class="w-1/2">項目</div>
             <div class="w-1/4">售價</div>
@@ -23,21 +25,23 @@
             <div
               v-for="cartItem in cartItems"
               :key="cartItem.id"
-              class="h-[108px] p-2 flex items-center"
+              class="h-[108px] p-2 flex items-center flex-wrap"
             >
-              <div class="w-1/2 flex item-center gap-2 pr-8">
+              <div class="w-full lg:w-1/2 flex item-center gap-2 pr-8">
                 <div
-                  class="min-w-[120px] h-[68px] bg-cover rounded-lg"
+                  class="lg:min-w-[120px] h-[68px] bg-cover rounded-lg"
                   :style="{
                     backgroundImage: `url(${cartItem.image})`,
                   }"
                 ></div>
-                <span>{{ cartItem.name }}</span>
+                <span class="text-[14px] lg:text-[16px]">{{
+                  cartItem.name
+                }}</span>
               </div>
-              <div class="w-1/4 text-[#8c8c8c]">
+              <div class="w-full lg:w-1/4 text-[#8c8c8c]">
                 {{ numberFormat({ number: cartItem.subtotal }) }}
               </div>
-              <div class="w-1/4 flex gap-4">
+              <div class="w-full lg:w-1/4 flex gap-4">
                 <div class="w-1/2 text-[#595959]">
                   {{ numberFormat({ number: cartItem.total }) }}
                 </div>
@@ -49,10 +53,10 @@
           </div>
         </div>
       </div>
-      <div class="w-1/3 gap-3 flex flex-col">
-        <span class="text-[24px]">小計</span>
+      <div class="w-full lg:w-1/3 gap-3 flex flex-col">
+        <span class="text-[20px] lg:text-[24px]">小計</span>
         <div
-          class="w-full h-[330px] min-w-[380px] shadow-lg bg-white p-2 flex flex-col gap-2"
+          class="w-full lg:h-[330px] lg:min-w-[380px] shadow-lg bg-white p-2 flex flex-col gap-2"
         >
           <div class="text-[#8c8c8c] text-[16px]">輸入折扣碼</div>
           <div class="flex gap-2">
@@ -60,7 +64,10 @@
               type="text"
               class="border border-[#bfbfbf] grow rounded focus:outline-[#898989] p-2"
             />
-            <BaseButton class="text-[#e34a4a] bg-[#ffe5e5]" text="確定" />
+            <BaseButton
+              class="hidden lg:block text-[#e34a4a] bg-[#ffe5e5]"
+              text="確定"
+            />
           </div>
           <div class="flex gap-1 items-center cursor-pointer border-b py-3">
             <span

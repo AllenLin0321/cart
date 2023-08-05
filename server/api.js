@@ -1,13 +1,15 @@
 ﻿import axios from 'axios'
-const baseUrl = 'https://api.hiskio.com/v2'
+const API_VERSION = 'v2'
+
+axios.defaults.baseURL = `https://api.hiskio.com/${API_VERSION}`
 
 export const authLoginApi = (payload) => {
-  return axios.post(`${baseUrl}/auth/login`, payload)
+  return axios.post(`/auth/login`, payload)
 }
 
 export const authLogoutApi = (token) => {
   return axios.post(
-    `${baseUrl}/auth/logout`,
+    `/auth/logout`,
     {},
     {
       headers: {
@@ -18,7 +20,7 @@ export const authLogoutApi = (token) => {
 }
 
 export const getUserApi = (token) => {
-  return axios.get(`${baseUrl}/me`, {
+  return axios.get(`/me`, {
     headers: {
       Authorization: token ? `Bearer ${token}` : '',
     },
@@ -26,14 +28,14 @@ export const getUserApi = (token) => {
 }
 
 export const getGeneralCoursesApi = (type) => {
-  return axios.get(`${baseUrl}/courses`, { params: { type } })
+  return axios.get(`/courses`, { params: { type } })
 }
 export const getFundraisingCoursesApi = () => {
-  return axios.get(`${baseUrl}/fundraising`)
+  return axios.get(`/fundraising`)
 }
 
 export const deleteCartApi = (payload, token) => {
-  return axios.delete(`${baseUrl}/carts`, {
+  return axios.delete(`/carts`, {
     headers: {
       Authorization: token ? `Bearer ${token}` : '',
     },
@@ -41,7 +43,7 @@ export const deleteCartApi = (payload, token) => {
   })
 }
 export const updateCartApi = (payload, token) => {
-  return axios.post(`${baseUrl}/carts`, payload, {
+  return axios.post(`/carts`, payload, {
     headers: {
       Authorization: token ? `Bearer ${token}` : '',
     },

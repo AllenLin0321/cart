@@ -99,7 +99,8 @@
             text="登入"
             class="bg-[#42A4BC] text-white w-full mt-5 h-[40px]"
             type="submit"
-          />
+            :is-loading="$store.state.user.isLoading"
+          ></BaseButton>
         </form>
 
         <!-- 忘記密碼 -->
@@ -120,7 +121,12 @@ import { SET_IS_DIALOG_OPEN } from '~/store/mutation-types'
 
 export default {
   name: 'LoginDialog',
-  components: { CrossMarkVue, UserCircleIcon, LockCloseIcon, BaseButton },
+  components: {
+    CrossMarkVue,
+    UserCircleIcon,
+    LockCloseIcon,
+    BaseButton,
+  },
   data() {
     return {
       logoUrl:

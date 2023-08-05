@@ -1,6 +1,6 @@
 ﻿<template>
   <div
-    class="w-[280px] h-[348px] bg-white rounded-md flex flex-col cursor-pointer"
+    class="w-full lg:w-[280px] h-[348px] bg-white rounded-md flex flex-col cursor-pointer"
   >
     <div
       class="w-full h-[150px] bg-cover relative"

@@ -1,21 +1,21 @@
 ﻿<template>
   <div class="h-full flex justify-center bg-[#f5f5f5]">
-    <div class="w-3/4 py-12 flex justify-between gap-4">
+    <div class="w-full lg:w-3/4 p-3 lg:py-12 flex justify-between gap-4">
       <div class="flex flex-col gap-4 w-full">
         <div class="text-[22px] text-[#434343]">募資課程</div>
         <TheSpinner v-if="isLoading" />
-        <div v-else class="flex gap-3 max-w-full overflow-auto">
-          <div
+        <div
+          v-else
+          class="flex gap-3 max-w-full overflow-auto flex-wrap lg:flex-nowrap"
+        >
+          <ClassCard
             v-for="fundraisingCourse in fundraisingCourses"
             :key="fundraisingCourse.id"
-          >
-            <ClassCard
-              :fundraising-course="fundraisingCourse"
-              :on-add-cart="onAddCart"
-              :on-remove-cart="onRemoveCart"
-              :is-item-in-cart="isItemInCart"
-            />
-          </div>
+            :fundraising-course="fundraisingCourse"
+            :on-add-cart="onAddCart"
+            :on-remove-cart="onRemoveCart"
+            :is-item-in-cart="isItemInCart"
+          />
         </div>
       </div>
     </div>
