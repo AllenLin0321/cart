@@ -1,21 +1,23 @@
 ﻿<template>
   <div
-    class="flex items-center justify-center fixed top-0 left-0 z-[10] w-full h-full bg-black/[.7]"
+    class="p-5 lg:p-0 flex items-center justify-center fixed top-0 left-0 z-[10] w-full h-full bg-black/[.7]"
   >
     <div
-      class="rounded-xl bg-white p-10 w-[450px] h-90v overflow-y-auto"
+      class="rounded-xl bg-white p-8 lg:p-10 w-[450px] h-90v overflow-y-auto"
       :style="{
         backgroundImage: `url(${backgroundUrl})`,
       }"
     >
       <div class="flex flex-col items-center relative">
         <button class="absolute top-[-15px] right-0" @click="onCloseDialog()">
-          <CrossMarkVue class="text-[#595959]" />
+          <CrossMarkIcon class="text-[#595959]" />
         </button>
         <img :src="logoUrl" class="w-[120px] h-[18px]" />
 
         <!-- 登入 or 註冊 -->
-        <div class="mt-5 text-[32px] text-[#D9D9D9] w-full flex justify-evenly">
+        <div
+          class="mt-5 text-[24px] lg:text-[32px] text-[#D9D9D9] w-full flex justify-evenly"
+        >
           <span class="selectedNav cursor-pointer">登入</span>
           <span class="cursor-pointer">註冊</span>
         </div>
@@ -36,7 +38,7 @@
           </div>
         </div>
 
-        <form @submit.prevent="onAuthLogin">
+        <form @submit.prevent="onAuthLogin" class="w-full">
           <!-- HiSKIO ID登入 -->
           <div class="flex flex-col text-[16px] text-[#595959] w-full">
             <span class="my-6 mx-auto">使用 HiSKIO ID 登入</span>
@@ -73,9 +75,9 @@
           </div>
 
           <!-- 同意事項 -->
-          <div class="w-full flex items-center gap-2 px-4 mt-5">
+          <div class="w-full flex items-center gap-2 mt-5">
             <input type="checkbox" checked />
-            <p class="text-[14px] text-[#8C8C8C]">
+            <p class="text-[10px] lg:text-[14px] text-[#8C8C8C]">
               <span
                 >登入註冊即代表您同意<a
                   href="https://hiskio.com/user-policy"
@@ -113,7 +115,7 @@
 </template>
 
 <script>
-import CrossMarkVue from './icons/CrossMark.vue'
+import CrossMarkIcon from './icons/CrossMarkIcon.vue'
 import LockCloseIcon from './icons/LockCloseIcon.vue'
 import UserCircleIcon from './icons/UserCircleIcon.vue'
 import BaseButton from './base/BaseButton'
@@ -122,7 +124,7 @@ import { SET_IS_DIALOG_OPEN } from '~/store/mutation-types'
 export default {
   name: 'LoginDialog',
   components: {
-    CrossMarkVue,
+    CrossMarkIcon,
     UserCircleIcon,
     LockCloseIcon,
     BaseButton,

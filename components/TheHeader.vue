@@ -3,6 +3,7 @@
     <nav class="flex items-center justify-center h-full">
       <div
         class="px-3 lg:p-0 w-full lg:w-3/4 h-full flex items-center justify-between"
+        :class="{ shadow: isMenuOpen }"
       >
         <div class="flex items-center gap-2 h-full">
           <!-- Company Logo -->
@@ -27,7 +28,10 @@
           </div>
         </div>
         <div class="flex items-center gap-4">
-          <div v-if="isLogin" class="text-regular-black cursor-pointer">
+          <div
+            v-if="isLogin"
+            class="hidden lg:block text-regular-black cursor-pointer"
+          >
             任務版
           </div>
           <div class="text-regular-black cursor-pointer hidden lg:block">
@@ -51,18 +55,60 @@
           <TheAvatar
             v-if="isLogin"
             :image-url="$store.state.user.data.avatar"
-            class="cursor-pointer"
+            class="hidden lg:block cursor-pointer"
           />
           <BaseButton
             v-if="isLogin"
             :on-click="onClickLogout"
             text="登出"
-            class="text-white bg-regular-blue"
+            class="hidden lg:block text-white bg-regular-blue"
           ></BaseButton>
-          <button><MenuIcon class="text-[#8c8c8c]" /></button>
+          <button v-if="isMenuOpen" @click="isMenuOpen = false">
+            <CrossMarkIcon class="text-[#8c8c8c]" />
+          </button>
+          <button v-else @click="isMenuOpen = true" class="lg:hidden">
+            <MenuIcon class="text-[#8c8c8c]" />
+          </button>
         </div>
       </div>
     </nav>
+    <div
+      v-if="isMenuOpen"
+      class="w-full h-screen bg-[#fafafa] p-4 flex flex-col"
+    >
+      <div v-if="isLogin">
+        <div class="flex items-center gap-2">
+          <TheAvatar
+            :image-url="$store.state.user.data.avatar"
+            class="cursor-pointer"
+          />
+          {{ $store.state.user.data.username }}
+        </div>
+        <hr class="my-2" />
+        <div class="menu-title">我的課程</div>
+        <div class="menu-title">我的抵用券</div>
+        <div class="menu-title">任務版</div>
+        <div class="menu-title">訂單記錄</div>
+        <div class="menu-title">帳戶設定</div>
+        <div class="menu-title">我開設的課</div>
+        <div class="menu-title">探索課程</div>
+        <hr />
+        <div
+          class="menu-title"
+          :style="{ color: '#178FAC' }"
+          @click="onClickLogout"
+        >
+          登出
+        </div>
+      </div>
+      <div v-else>
+        <div class="menu-title">探索課程</div>
+        <div class="menu-title">企業方案</div>
+        <hr class="my-2" />
+        <div class="menu-title" @click="onClickLogin">登入</div>
+        <div class="menu-title" :style="{ color: '#178FAC' }">註冊</div>
+      </div>
+    </div>
   </header>
 </template>
 
@@ -74,6 +120,7 @@ import InformationIcon from './icons/InformationIcon.vue'
 import BaseButton from './base/BaseButton'
 import TheAvatar from './base/TheAvatar'
 import MenuIcon from './icons/MenuIcon.vue'
+import CrossMarkIcon from './icons/CrossMarkIcon.vue'
 import { SET_IS_DIALOG_OPEN } from '~/store/mutation-types'
 
 export default {
@@ -86,6 +133,7 @@ export default {
     BaseButton,
     TheAvatar,
     MenuIcon,
+    CrossMarkIcon,
   },
   data() {
     return {
@@ -93,6 +141,7 @@ export default {
         'https://d2npjgpjzmbqfv.cloudfront.net/img/logo-hiskio.36e69fc.svg',
       hiringIconUrl:
         'https://d2npjgpjzmbqfv.cloudfront.net/img/header-recruit.3e1f6fd.png',
+      isMenuOpen: false,
     }
   },
   computed: {
@@ -104,10 +153,27 @@ export default {
     onClickLogin() {
       this.$store.dispatch('fetchFundraisingCourses')
       this.$store.commit(SET_IS_DIALOG_OPEN, true)
+      this.isMenuOpen = false
     },
     onClickLogout() {
       this.$store.dispatch('logout')
+      this.isMenuOpen = false
     },
   },
 }
 </script>
+
+<style scoped>
+.menu-title {
+  width: 100%;
+  height: 48px;
+  font-size: 16px;
+  color: #434343;
+  display: flex;
+  align-items: center;
+}
+
+.menu-title:active {
+  background: #f5f5f5;
+}
+</style>
