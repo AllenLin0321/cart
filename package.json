@@ -11,10 +11,13 @@
     "lint:prettier": "prettier --check .",
     "lint": "yarn lint:js && yarn lint:prettier",
     "lintfix": "prettier --write --list-different . && yarn lint:js --fix",
-    "test": "jest"
+    "test": "jest",
+    "storybook": "npx nuxt storybook",
+    "deploy:sb": "rm -rf storybook-static && nuxt storybook build && cd storybook-static && surge ./ --domain https://infinite-masonry-sb.surge.sh/"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
+    "@nuxtjs/storybook": "^4.3.2",
     "core-js": "^3.25.3",
     "nuxt": "^2.15.8",
     "vue": "^2.7.10",
