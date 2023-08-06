@@ -53,4 +53,8 @@ export default {
       return config
     },
   },
+  target: 'static',
+  router: {
+    base: '/cart/',
+  },
 }
