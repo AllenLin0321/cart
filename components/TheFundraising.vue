@@ -2,7 +2,7 @@
   <div class="h-full flex justify-center bg-[#f5f5f5]">
     <div class="w-full lg:w-3/4 p-3 lg:py-12 flex justify-between gap-4">
       <div class="flex flex-col gap-4 w-full">
-        <div class="text-[22px] text-[#434343]">募資課程</div>
+        <div class="text-[22px] text-gray-light-700">募資課程</div>
         <TheSpinner v-if="isLoading" />
         <!-- Web 樣式 -->
         <div
@@ -34,7 +34,9 @@
                     class="w-[140px] h-[76px]"
                   />
                   <div class="flex flex-col gap-3 w-[110px]">
-                    <span class="text-[14px] text-[#595959]">已募資55%</span>
+                    <span class="text-[14px] text-gray-light-600"
+                      >已募資55%</span
+                    >
                     <ProgressBar percent="30" />
                     <div class="flex gap-2">
                       <span class="text-[14px]">{{
@@ -43,7 +45,7 @@
                           showDollarSign: true,
                         })
                       }}</span>
-                      <span class="text-[14px] text-[#bfbfbf] line-through">{{
+                      <span class="text-[14px] text-gray-400 line-through">{{
                         numberFormat({
                           number: fundraisingCourse.fixed_price,
                           showDollarSign: true,

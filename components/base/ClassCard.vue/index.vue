@@ -27,11 +27,11 @@
       <span class="text-[#454545] truncate">{{ fundraisingCourse.title }}</span>
       <div class="flex gap-2 items-end">
         <TheAvatar :image-url="fundraisingCourse.lecturers[0].avatar" />
-        <span class="text-[#8c8c8c] text-[16px]">{{
+        <span class="text-gray-light-500 text-[16px]">{{
           fundraisingCourse.lecturers[0].username
         }}</span>
       </div>
-      <div class="flex justify-between text-[#595959] text-[14px]">
+      <div class="flex justify-between text-gray-light-600 text-[14px]">
         <span>剩三天</span>
         <span>已募資55%</span>
       </div>
@@ -43,7 +43,7 @@
             showDollarSign: true,
           })
         }}</span>
-        <span class="text-[14px] text-[#bfbfbf] line-through">{{
+        <span class="text-[14px] text-gray-400 line-through">{{
           numberFormat({
             number: fundraisingCourse.fixed_price,
             showDollarSign: true,

@@ -3,17 +3,12 @@ export default {
   title: 'Base/Spinner',
   component: TheSpinner,
   argTypes: {
-    type: {
+    size: {
       control: {
         type: 'select',
-        options: ['primary', 'secondary'],
+        options: ['small', 'default', 'medium', 'large'],
       },
-      defaultValue: 'primary',
-    },
-    round: { control: 'boolean' },
-    text: {
-      control: 'text',
-      defaultValue: 'Button',
+      defaultValue: 'default',
     },
   },
 }

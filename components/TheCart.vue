@@ -19,7 +19,7 @@
         >
           <!-- Items Header -->
           <div
-            class="h-[50px] flex px-2 py-1 items-end text-light-gray text-[16px]"
+            class="h-[50px] flex px-2 py-1 items-end text-gray-light-500 text-[16px]"
           >
             <div class="w-1/2">項目</div>
             <div class="w-1/4">售價</div>
@@ -41,15 +41,15 @@
                 ></div>
                 <span class="text-[16px]">{{ cartItem.name }}</span>
               </div>
-              <div class="w-1/4 text-[#8c8c8c]">
+              <div class="w-1/4 text-gray-light-500">
                 {{ numberFormat({ number: cartItem.subtotal }) }}
               </div>
               <div class="w-1/4 flex gap-4">
-                <div class="w-1/2 text-[#595959]">
+                <div class="w-1/2 text-gray-light-600">
                   {{ numberFormat({ number: cartItem.total }) }}
                 </div>
                 <button @click="onRemoveCart(cartItem.id)">
-                  <TrashIcon class="cursor-pointer text-[#bfbfbf]" />
+                  <TrashIcon class="cursor-pointer text-gray-400" />
                 </button>
               </div>
             </div>
@@ -70,19 +70,19 @@
                   class="w-[62px] h-[34px] bg-cover"
                   :alt="cartItem.name"
                 />
-                <span class="text-[#595959] text-[14px]">
+                <span class="text-gray-light-600 text-[14px]">
                   {{ cartItem.name }}
                 </span>
               </div>
               <button @click="onRemoveCart(cartItem.id)">
-                <TrashIcon class="cursor-pointer text-[#bfbfbf]" />
+                <TrashIcon class="cursor-pointer text-gray-400" />
               </button>
             </div>
             <div class="w-full flex justify-between">
-              <span class="text-[#8c8c8c]">
+              <span class="text-gray-light-500">
                 {{ numberFormat({ number: cartItem.subtotal }) }}
               </span>
-              <span class="text-[#595959]">
+              <span class="text-gray-light-600">
                 {{ numberFormat({ number: cartItem.total }) }}
               </span>
             </div>
@@ -94,40 +94,44 @@
         <div
           class="w-full lg:h-[330px] lg:min-w-[380px] shadow-lg bg-white p-2 flex flex-col gap-2"
         >
-          <div class="text-[#8c8c8c] text-[16px]">輸入折扣碼</div>
+          <div class="text-gray-light-500 text-[16px]">輸入折扣碼</div>
           <div class="flex gap-2">
             <input
               type="text"
-              class="border border-[#bfbfbf] grow rounded focus:outline-[#898989] p-2"
+              class="border border-gray-400 grow rounded focus:outline-gray-light-500 p-2"
             />
             <BaseButton
-              class="hidden lg:block text-[#e34a4a] bg-[#ffe5e5] h-full"
+              class="hidden lg:block h-full"
+              color="secondary-light"
+              variant="contained"
               text="確定"
             />
           </div>
           <div class="flex gap-1 items-center cursor-pointer border-b py-3">
             <span
-              class="text-[#595959] text-[18px] underline underline-offset-4"
+              class="text-gray-light-600 text-[18px] underline underline-offset-4"
               >選擇抵用卷</span
             >
             <ArrowRightIcon class="cursor-pointer" />
           </div>
           <div class="flex justify-between">
-            <span class="text-[#8c8c8c] text-[16px]">金額</span>
-            <span class="text-[#595959] text-[14px]">{{
+            <span class="text-gray-light-500 text-[16px]">金額</span>
+            <span class="text-gray-light-600 text-[14px]">{{
               numberFormat({ number: cartSubtotal, showDollarSign: true })
             }}</span>
           </div>
 
-          <span class="text-[#434343] text-[28px] self-end">{{
+          <span class="text-gray-light-700 text-[28px] self-end">{{
             numberFormat({ number: cartTotal, showDollarSign: true })
           }}</span>
 
           <BaseButton
             text="前往結賬"
-            class="bg-[#e34a4a] text-white w-full h-[40px]"
+            class="!w-full h-[40px]"
+            color="secondary"
+            variant="contained"
           />
-          <span class="text-[12px] text-[#8c8c8c] mt-4"
+          <span class="text-[12px] text-gray-light-500 mt-4"
             >點擊上方按鈕即表示您已閱讀並同意「 HiSKIO購買與退費政策」</span
           >
         </div>

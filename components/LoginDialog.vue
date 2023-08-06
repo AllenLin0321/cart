@@ -10,13 +10,13 @@
     >
       <div class="flex flex-col items-center relative">
         <button class="absolute top-[-15px] right-0" @click="onCloseDialog()">
-          <CrossMarkIcon class="text-[#595959]" />
+          <CrossMarkIcon class="text-gray-light-600" />
         </button>
         <img :src="logoUrl" class="w-[120px] h-[18px]" />
 
         <!-- 登入 or 註冊 -->
         <div
-          class="mt-5 text-[24px] lg:text-[32px] text-[#D9D9D9] w-full flex justify-evenly"
+          class="mt-5 text-[24px] lg:text-[32px] text-gray-light-300 w-full flex justify-evenly"
         >
           <span class="selectedNav cursor-pointer">登入</span>
           <span class="cursor-pointer">註冊</span>
@@ -27,7 +27,7 @@
           <div
             v-for="socialMedia in socialMedias"
             :key="socialMedia.id"
-            class="w-full h-[48px] border flex items-center justify-center text-[16px] text-[#595959] rounded-lg border-[#BFBFBF]"
+            class="w-full h-[48px] border flex items-center justify-center text-[16px] text-gray-light-600 rounded-lg border-gray-400"
           >
             <img
               :src="socialMedia.iconSrc"
@@ -38,18 +38,18 @@
           </div>
         </div>
 
-        <form @submit.prevent="onAuthLogin" class="w-full">
+        <form class="w-full" @submit.prevent="onAuthLogin">
           <!-- HiSKIO ID登入 -->
-          <div class="flex flex-col text-[16px] text-[#595959] w-full">
+          <div class="flex flex-col text-[16px] text-gray-light-600 w-full">
             <span class="my-6 mx-auto">使用 HiSKIO ID 登入</span>
             <div
-              class="flex gap-2 bg-[#fafafa] rounded w-full h-[40px] items-center px-4"
+              class="flex gap-2 bg-gray-light-50 rounded w-full h-[40px] items-center px-4"
             >
-              <UserCircleIcon class="text-[#bfbfbf]" />
+              <UserCircleIcon class="text-gray-400" />
               <input
                 v-model="account"
                 type="text"
-                class="bg-[#fafafa] w-full focus:outline-none"
+                class="bg-gray-light-50 w-full focus:outline-none"
                 placeholder="請輸入 HiSKIO ID"
                 autocomplete="account"
               />
@@ -58,13 +58,13 @@
               $store.state.authData.accountErrorMessage
             }}</span>
             <div
-              class="flex gap-2 bg-[#fafafa] rounded w-full h-[40px] items-center px-4 mt-3"
+              class="flex gap-2 bg-gray-light-50 rounded w-full h-[40px] items-center px-4 mt-3"
             >
-              <LockCloseIcon class="text-[#bfbfbf]" />
+              <LockCloseIcon class="text-gray-400" />
               <input
                 v-model="password"
                 type="password"
-                class="bg-[#fafafa] w-full focus:outline-none"
+                class="bg-gray-light-50 w-full focus:outline-none"
                 placeholder="請輸入登入密碼"
                 autocomplete="current-password"
               />
@@ -76,8 +76,8 @@
 
           <!-- 同意事項 -->
           <div class="w-full flex items-center gap-2 mt-5">
-            <input type="checkbox" checked class="accent-[#178FAC]" />
-            <p class="text-[10px] lg:text-[14px] text-[#8C8C8C]">
+            <input type="checkbox" checked class="accent-primary" />
+            <p class="text-[10px] lg:text-[14px] text-gray-light-500">
               <span
                 >登入註冊即代表您同意<a
                   href="https://hiskio.com/user-policy"
@@ -99,14 +99,14 @@
           <!-- 登入按鈕 -->
           <BaseButton
             text="登入"
-            class="bg-[#42A4BC] text-white w-full mt-5 h-[40px]"
+            class="!w-full mt-5 h-[40px]"
             type="submit"
-            :is-loading="$store.state.user.isLoading"
+            :loading="$store.state.user.isLoading"
           ></BaseButton>
         </form>
 
         <!-- 忘記密碼 -->
-        <span class="text-[16px] text-[#8C8C8C] mt-5 cursor-pointer"
+        <span class="text-[16px] text-gray-light-500 mt-5 cursor-pointer"
           >忘記密碼</span
         >
       </div>

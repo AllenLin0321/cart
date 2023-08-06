@@ -1,7 +1,7 @@
 ﻿<template>
   <div class="w-full bg-[#f0f0f0] rounded-full h-2.5">
     <div
-      class="bg-[#EB6767] h-2.5 rounded-full"
+      class="bg-secondary-dark h-2.5 rounded-full"
       :style="`width: ${this.percent}%`"
     ></div>
   </div>

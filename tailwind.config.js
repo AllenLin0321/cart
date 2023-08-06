@@ -2,19 +2,27 @@
   theme: {
     extend: {
       colors: {
-        'regular-black': '#595959',
-        'regular-blue': '#178FAC',
-        'light-gray': '#8c8c8c',
+        primary: {
+          light: '#42A4BC',
+          DEFAULT: '#178FAC',
+        },
+        secondary: {
+          light: '#FFE5E5',
+          DEFAULT: '#E34A4A',
+          dark: '#EB6767',
+        },
+        gray: {
+          400: '#BFBFBF',
+          light: {
+            50: '#fafafa',
+            300: '#d9d9d9',
+            500: '#8c8c8c',
+            600: '#595959',
+            700: '#434343',
+          },
+        },
       },
       height: {
-        '10v': '10vh',
-        '20v': '20vh',
-        '30v': '30vh',
-        '40v': '40vh',
-        '50v': '50vh',
-        '60v': '60vh',
-        '70v': '70vh',
-        '80v': '80vh',
         '90v': '90vh',
       },
     },

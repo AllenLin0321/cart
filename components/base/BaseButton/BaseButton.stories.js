@@ -1,16 +1,16 @@
 ﻿import BaseButton from './index'
+
 export default {
   title: 'Base/Button',
   component: BaseButton,
   argTypes: {
-    type: {
+    variant: {
       control: {
         type: 'select',
-        options: ['primary', 'secondary'],
+        options: ['contained', 'outlined'],
       },
-      defaultValue: 'primary',
+      defaultValue: 'contained',
     },
-    round: { control: 'boolean' },
     text: {
       control: 'text',
       defaultValue: 'Button',
@@ -18,8 +18,20 @@ export default {
   },
 }
 
-export const Button = (arg, { argTypes }) => ({
+export const Primary = (arg, { argTypes }) => ({
   components: { BaseButton },
   props: Object.keys(argTypes),
-  template: '<BaseButton v-bind="$props" />',
+  template: '<BaseButton  color="primary" v-bind="$props" />',
+})
+
+export const Secondary = (arg, { argTypes }) => ({
+  components: { BaseButton },
+  props: Object.keys(argTypes),
+  template: '<BaseButton  color="secondary" v-bind="$props" />',
+})
+
+export const SecondaryLight = (arg, { argTypes }) => ({
+  components: { BaseButton },
+  props: Object.keys(argTypes),
+  template: '<BaseButton  color="secondary-light" v-bind="$props" />',
 })

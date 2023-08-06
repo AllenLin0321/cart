@@ -18,40 +18,37 @@
           <div
             class="items-center gap-[6px] mx-3 cursor-pointer hidden lg:flex"
           >
-            <SquaresIcon class="text-[#8c8c8c]" />
-            <span class="text-regular-black">課程</span>
+            <SquaresIcon class="text-gray-light-500" />
+            <span class="text-gray-light-600">課程</span>
           </div>
           <!-- Search -->
           <div class="flex items-center gap-[6px]">
-            <GlassIcon class="text-[#8c8c8c] cursor-pointer" />
-            <span class="hidden lg:block text-[#bfbfbf]">搜尋</span>
+            <GlassIcon class="text-gray-light-500 cursor-pointer" />
+            <span class="hidden lg:block text-gray-400">搜尋</span>
           </div>
         </div>
         <div class="flex items-center gap-4">
           <div
             v-if="isLogin"
-            class="hidden lg:block text-regular-black cursor-pointer"
+            class="hidden lg:block text-gray-light-600 cursor-pointer"
           >
             任務版
           </div>
-          <div class="text-regular-black cursor-pointer hidden lg:block">
+          <div class="text-gray-light-600 cursor-pointer hidden lg:block">
             {{ isLogin ? '我的課程' : '我想開課' }}
           </div>
-          <SolidCartIcon class="text-[#d9d9d9]" />
+          <SolidCartIcon class="text-gray-light-300" />
           <InformationIcon
-            class="hidden lg:block cursor-pointer text-[#d9d9d9]"
+            class="hidden lg:block cursor-pointer text-gray-light-300"
           />
           <BaseButton
             v-if="!isLogin"
             text="登入"
-            class="hidden lg:block text-regular-blue bg-white border border-regular-blue"
+            class="hidden lg:block"
             :on-click="onClickLogin"
+            variant="outlined"
           />
-          <BaseButton
-            v-if="!isLogin"
-            text="註冊"
-            class="hidden lg:block text-white bg-regular-blue"
-          />
+          <BaseButton v-if="!isLogin" text="註冊" class="hidden lg:block" />
           <TheAvatar
             v-if="isLogin"
             :image-url="$store.state.user.data.avatar"
@@ -61,20 +58,20 @@
             v-if="isLogin"
             :on-click="onClickLogout"
             text="登出"
-            class="hidden lg:block text-white bg-regular-blue"
+            class="hidden lg:block"
           ></BaseButton>
           <button v-if="isMenuOpen" @click="isMenuOpen = false">
-            <CrossMarkIcon class="text-[#8c8c8c]" />
+            <CrossMarkIcon class="text-gray-light-500" />
           </button>
-          <button v-else @click="isMenuOpen = true" class="lg:hidden">
-            <MenuIcon class="text-[#8c8c8c]" />
+          <button v-else class="lg:hidden" @click="isMenuOpen = true">
+            <MenuIcon class="text-gray-light-500" />
           </button>
         </div>
       </div>
     </nav>
     <div
       v-if="isMenuOpen"
-      class="w-full h-screen bg-[#fafafa] p-4 flex flex-col"
+      class="w-full h-screen bg-gray-light-50 p-4 flex flex-col"
     >
       <div v-if="isLogin">
         <div class="flex items-center gap-2">
