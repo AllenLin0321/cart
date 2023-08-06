@@ -12,8 +12,8 @@
     "lint": "yarn lint:js && yarn lint:prettier",
     "lintfix": "prettier --write --list-different . && yarn lint:js --fix",
     "test": "jest",
-    "storybook": "npx nuxt storybook",
-    "deploy:sb": "rm -rf storybook-static && nuxt storybook build && cd storybook-static && surge ./ --domain https://infinite-masonry-sb.surge.sh/"
+    "storybook": "yarn nuxt storybook",
+    "deploy:sb": "yarn nuxt storybook build"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
