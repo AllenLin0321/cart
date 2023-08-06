@@ -96,7 +96,7 @@ export const actions = {
       })
     }
   },
-  async login({ commit, dispatch }, payload) {
+  async login({ state, commit, dispatch }, payload) {
     try {
       commit(mutationTypes.SET_LOADING_STATUS, {
         stateKey: 'user',
@@ -106,6 +106,23 @@ export const actions = {
       localStorage.setItem('hiskioMember', data.access_token)
       commit(mutationTypes.SET_AUTH_TOKEN, data.access_token)
       await dispatch('fetchUser', data.access_token)
+      const { data: cartData } = await updateCartApi(
+        { item: [] },
+        data.access_token
+      )
+
+      const currentCartIds = state.cart?.data.map((item) => item.id)
+
+      const memberCart = cartData.data.filter(
+        (item) => !currentCartIds.includes(item.id)
+      )
+
+      const newCartItems = [...memberCart, ...state.cart?.data]
+
+      const newPayload = { data: newCartItems }
+
+      localStorage.setItem('hiskioCart', JSON.stringify(newPayload))
+      commit(mutationTypes.SET_CART_ITEMS, newPayload)
     } catch (error) {
       const { message } = error?.response?.data
       let accountErrorMessage, passwordErrorMessage
