@@ -13,13 +13,15 @@
     "lintfix": "prettier --write --list-different . && yarn lint:js --fix",
     "test": "jest",
     "storybook": "npx nuxt storybook",
-    "deploy:sb": "rm -rf storybook-static && nuxt storybook build && cd storybook-static && surge ./ --domain https://infinite-masonry-sb.surge.sh/"
+    "deploy:sb": "rm -rf storybook-static && nuxt storybook build && cd storybook-static && surge ./ --domain https://infinite-masonry-sb.surge.sh/",
+    "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/storybook": "^4.3.2",
     "core-js": "^3.25.3",
     "nuxt": "^2.15.8",
+    "push-dir": "^0.4.1",
     "vue": "^2.7.10",
     "vue-server-renderer": "^2.7.10",
     "vue-template-compiler": "^2.7.10"
