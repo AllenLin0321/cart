@@ -141,6 +141,8 @@
 </template>
 
 <script>
+import { computed } from 'vue'
+import { useStore } from '@nuxtjs/composition-api'
 import { numberFormat } from '../utils'
 import TrashIcon from './icons/TrashIcon.vue'
 import BaseButton from './base/BaseButton'
@@ -149,26 +151,27 @@ import ArrowRightIcon from './icons/ArrowRightIcon.vue'
 export default {
   name: 'TheCart',
   components: { TrashIcon, BaseButton, ArrowRightIcon },
-  computed: {
-    cartItems() {
-      return this.$store.state.cart.data
-    },
-    cartSubtotal() {
-      return this.$store.state.cart.data?.reduce((accu, curr) => {
+  setup() {
+    const store = useStore()
+    const cartItems = computed(() => store.state.cart.data)
+    const cartSubtotal = computed(() =>
+      store.state.cart.data?.reduce((accu, curr) => {
         return accu + curr.subtotal
       }, 0)
-    },
-    cartTotal() {
-      return this.$store.state.cart.data?.reduce((accu, curr) => {
+    )
+    const cartTotal = computed(() =>
+      store.state.cart.data?.reduce((accu, curr) => {
         return accu + curr.total
       }, 0)
-    },
+    )
+
+    const onRemoveCart = (id) => {
+      store.dispatch('removeCartItems', { id })
+    }
+
+    return { cartItems, cartSubtotal, cartTotal, numberFormat, onRemoveCart }
   },
-  methods: {
-    numberFormat,
-    onRemoveCart(id) {
-      this.$store.dispatch('removeCartItems', { id })
-    },
-  },
+
+  methods: {},
 }
 </script>

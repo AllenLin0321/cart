@@ -115,6 +115,8 @@
 </template>
 
 <script>
+import { ref, reactive } from 'vue'
+import { useStore } from '@nuxtjs/composition-api'
 import CrossMarkIcon from './icons/CrossMarkIcon.vue'
 import LockCloseIcon from './icons/LockCloseIcon.vue'
 import UserCircleIcon from './icons/UserCircleIcon.vue'
@@ -129,49 +131,60 @@ export default {
     LockCloseIcon,
     BaseButton,
   },
-  data() {
-    return {
-      logoUrl:
-        'https://d2npjgpjzmbqfv.cloudfront.net/img/logo-hiskio.36e69fc.svg',
-      socialMedias: [
-        {
-          id: 'facebook',
-          iconSrc: '/icon-facebook.svg',
-          displayText: 'Facebook',
-        },
-        {
-          id: 'google',
-          iconSrc: '/icon-google.svg',
-          displayText: 'Google',
-        },
-        {
-          id: 'github',
-          iconSrc: '/icon-github.svg',
-          displayText: 'Github',
-        },
-        {
-          id: 'linkedin',
-          iconSrc: '/icon-linkedin.svg',
-          displayText: 'LinkedIn',
-        },
-      ],
-      backgroundUrl:
-        'https://d2npjgpjzmbqfv.cloudfront.net/img/login.d8327b5.png',
-      account: '',
-      password: '',
+  setup() {
+    const store = useStore()
+    const logoUrl = ref(
+      'https://d2npjgpjzmbqfv.cloudfront.net/img/logo-hiskio.36e69fc.svg'
+    )
+    const socialMedias = reactive([
+      {
+        id: 'facebook',
+        iconSrc: '/icon-facebook.svg',
+        displayText: 'Facebook',
+      },
+      {
+        id: 'google',
+        iconSrc: '/icon-google.svg',
+        displayText: 'Google',
+      },
+      {
+        id: 'github',
+        iconSrc: '/icon-github.svg',
+        displayText: 'Github',
+      },
+      {
+        id: 'linkedin',
+        iconSrc: '/icon-linkedin.svg',
+        displayText: 'LinkedIn',
+      },
+    ])
+    const backgroundUrl = ref(
+      'https://d2npjgpjzmbqfv.cloudfront.net/img/login.d8327b5.png'
+    )
+    const account = ref('')
+    const password = ref('')
+
+    const onCloseDialog = () => {
+      store.commit(SET_IS_DIALOG_OPEN, false)
     }
-  },
-  methods: {
-    onCloseDialog() {
-      this.$store.commit(SET_IS_DIALOG_OPEN, false)
-    },
-    onAuthLogin() {
-      this.$store.dispatch('login', {
-        account: this.account,
-        password: this.password,
+
+    const onAuthLogin = () => {
+      store.dispatch('login', {
+        account: account.value,
+        password: password.value,
         confirm: true,
       })
-    },
+    }
+
+    return {
+      logoUrl,
+      socialMedias,
+      backgroundUrl,
+      account,
+      password,
+      onCloseDialog,
+      onAuthLogin,
+    }
   },
 }
 </script>

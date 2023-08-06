@@ -69,6 +69,8 @@
 </template>
 
 <script>
+import { computed } from 'vue'
+import { useStore } from '@nuxtjs/composition-api'
 import ClassCard from './base/ClassCard.vue'
 import ProgressBar from './base/ProgressBar'
 import TheAvatar from './base/TheAvatar'
@@ -78,25 +80,31 @@ import { numberFormat } from '~/utils/index'
 export default {
   name: 'TheFundraising',
   components: { ClassCard, TheSpinner, ProgressBar, TheAvatar },
-  computed: {
-    fundraisingCourses() {
-      return this.$store.state.fundraisingCourses.data
-    },
-    isLoading() {
-      return this.$store.state.fundraisingCourses.isLoading
-    },
-  },
-  methods: {
-    isItemInCart(id) {
-      return this.$store.getters.isItemInCart(id)
-    },
-    onAddCart(fundraisingCourse) {
-      this.$store.dispatch('updateCartItems', { id: fundraisingCourse.id })
-    },
-    onRemoveCart(fundraisingCourse) {
-      this.$store.dispatch('removeCartItems', { id: fundraisingCourse.id })
-    },
-    numberFormat,
+  setup() {
+    const store = useStore()
+    const fundraisingCourses = computed(
+      () => store.state.fundraisingCourses.data
+    )
+    const isLoading = computed(() => store.state.fundraisingCourses.isLoading)
+
+    const isItemInCart = (id) => {
+      return store.getters.isItemInCart(id)
+    }
+    const onAddCart = (fundraisingCourse) => {
+      store.dispatch('updateCartItems', { id: fundraisingCourse.id })
+    }
+    const onRemoveCart = (fundraisingCourse) => {
+      store.dispatch('removeCartItems', { id: fundraisingCourse.id })
+    }
+
+    return {
+      numberFormat,
+      fundraisingCourses,
+      isLoading,
+      isItemInCart,
+      onAddCart,
+      onRemoveCart,
+    }
   },
 }
 </script>

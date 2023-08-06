@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import { computed, onMounted } from 'vue'
+import { useStore } from '@nuxtjs/composition-api'
 import TheHeader from '../components/TheHeader.vue'
 import TheCart from '../components/TheCart.vue'
 import TheFundraising from '../components/TheFundraising.vue'
@@ -32,25 +34,25 @@ export default {
     LoginDialogVue,
     ScreenLoading,
   },
-  computed: {
-    isDialogOpen() {
-      return this.$store.state.isDialogOpen
-    },
-    isScreenLoading() {
-      return this.$store.state.isScreenLoading
-    },
-  },
-  mounted() {
-    this.$store.dispatch('fetchFundraisingCourses')
-    const token = localStorage.getItem('hiskioMember')
-    const cart = localStorage.getItem('hiskioCart')
-    if (token) {
-      this.$store.commit(SET_AUTH_TOKEN, token)
-      this.$store.dispatch('fetchUser', token)
-    }
-    if (cart) {
-      this.$store.commit(SET_CART_ITEMS, JSON.parse(cart))
-    }
+  setup() {
+    const store = useStore()
+    const isDialogOpen = computed(() => store.state.isDialogOpen)
+    const isScreenLoading = computed(() => store.state.isScreenLoading)
+
+    onMounted(() => {
+      store.dispatch('fetchFundraisingCourses')
+      const token = localStorage.getItem('hiskioMember')
+      const cart = localStorage.getItem('hiskioCart')
+      if (token) {
+        store.commit(SET_AUTH_TOKEN, token)
+        store.dispatch('fetchUser', token)
+      }
+      if (cart) {
+        store.commit(SET_CART_ITEMS, JSON.parse(cart))
+      }
+    })
+
+    return { isDialogOpen, isScreenLoading }
   },
 }
 </script>

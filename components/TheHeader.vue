@@ -110,6 +110,8 @@
 </template>
 
 <script>
+import { computed, ref } from 'vue'
+import { useStore } from '@nuxtjs/composition-api'
 import SquaresIcon from './icons/SquaresIcon.vue'
 import GlassIcon from './icons/GlassIcon.vue'
 import SolidCartIcon from './icons/SolidCartIcon.vue'
@@ -132,30 +134,36 @@ export default {
     MenuIcon,
     CrossMarkIcon,
   },
-  data() {
-    return {
-      logoUrl:
-        'https://d2npjgpjzmbqfv.cloudfront.net/img/logo-hiskio.36e69fc.svg',
-      hiringIconUrl:
-        'https://d2npjgpjzmbqfv.cloudfront.net/img/header-recruit.3e1f6fd.png',
-      isMenuOpen: false,
+  setup() {
+    const store = useStore()
+
+    const logoUrl = ref(
+      'https://d2npjgpjzmbqfv.cloudfront.net/img/logo-hiskio.36e69fc.svg'
+    )
+    const hiringIconUrl = ref(
+      'https://d2npjgpjzmbqfv.cloudfront.net/img/header-recruit.3e1f6fd.png'
+    )
+    const isMenuOpen = ref(false)
+
+    const isLogin = computed(() => store.state.authData.token)
+
+    const onClickLogin = () => {
+      store.commit(SET_IS_DIALOG_OPEN, true)
+      isMenuOpen.value = false
     }
-  },
-  computed: {
-    isLogin() {
-      return this.$store.state.authData.token
-    },
-  },
-  methods: {
-    onClickLogin() {
-      this.$store.dispatch('fetchFundraisingCourses')
-      this.$store.commit(SET_IS_DIALOG_OPEN, true)
-      this.isMenuOpen = false
-    },
-    onClickLogout() {
-      this.$store.dispatch('logout')
-      this.isMenuOpen = false
-    },
+
+    const onClickLogout = () => {
+      store.dispatch('logout')
+      isMenuOpen.value = false
+    }
+    return {
+      logoUrl,
+      hiringIconUrl,
+      isMenuOpen,
+      isLogin,
+      onClickLogin,
+      onClickLogout,
+    }
   },
 }
 </script>

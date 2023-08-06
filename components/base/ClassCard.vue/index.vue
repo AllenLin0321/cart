@@ -61,6 +61,7 @@ import OutlineCartIcon from '~/components/icons/OutlineCartIcon.vue'
 import SolidCartIcon from '~/components/icons/SolidCartIcon.vue'
 import BookMarkIconVue from '~/components/icons/BookMarkIcon.vue'
 import { numberFormat } from '~/utils/index'
+
 export default {
   name: 'ClassCard',
   components: {
@@ -88,8 +89,8 @@ export default {
       default: () => {},
     },
   },
-  methods: {
-    numberFormat,
+  setup() {
+    return { numberFormat }
   },
 }
 </script>
